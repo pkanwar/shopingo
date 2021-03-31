@@ -1,0 +1,5 @@
+
+REQ_BODY_EMPTY : ER001 --> No information provided in request , Please enter basic user details tp register
+EMAIL_ALREADY_PRESENT : ER002 --> This email id is already registered , please sign up with a new email id
+MOBILE_NUMBER_PRESENT : ER003 --> this mobile number is already present , please sign up with new mobile number
+LOGINID_PRESENT : ER004 --> This loginId is taken please try a new one

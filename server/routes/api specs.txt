@@ -1,0 +1,197 @@
+USERS
+
+add user
+POST
+/api/users/
+response {
+    id
+}
+status : 201
+
+get existing users
+GET
+/api/users/me 
+response 
+{
+    loginId,
+    email,
+    firstName,
+    lastName,
+    mobileNumber
+}
+
+update existing users
+PUT
+/api/users/me
+request : 
+{
+    email,
+    firstName,
+    lastName,
+    mobileNumber,
+    address
+}
+
+DELETE
+/api/users/me
+
+SESSION
+login with user
+POST
+/api/sessions/
+request : 
+{
+    "loginId" : "rakesh",
+    "password" : "rakesh@123"
+}
+response :
+status : 204,400,404
+
+
+PRODUCTS
+add product
+POST
+/api/products/add
+request : 
+{
+    title,
+    description,
+    category,
+    subCategory,
+    imageUrl,
+    discount,
+    price : {
+        actualPrice,
+        discountedPrice
+    }
+}
+
+get product by id
+GET 
+/api/products/:id
+response :
+  {
+    price: { actualPrice: 10000, discountedPrice: 9000 },
+    _id: 606172b098491d178c3f7d61,
+    title: 'sony cybershot',
+    description: 'cybershot',
+    category: 'electronics',
+    subCategory: 'camera',
+    imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61VFkA-rceL._SL1000_.jpg',
+    discount: 10,
+    __v: 0
+  }
+
+get products
+GET
+/api/products/
+parameters: category,subCategory,title,page,size
+response : 
+[
+    {
+        "price": {
+            "actualPrice": 10000,
+            "discountedPrice": 9000
+        },
+        "_id": "606172b098491d178c3f7d61",
+        "title": "sony cybershot",
+        "description": "cybershot",
+        "category": "electronics",
+        "subCategory": "camera",
+        "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61VFkA-rceL._SL1000_.jpg",
+        "discount": 10,
+        "__v": 0
+    }
+]
+
+CATEGORY 
+add category
+POST
+/api/category
+request :
+{
+    category : "electronics",
+    subCategory : [
+        {
+            subName : "camera"
+        },
+        {
+            subName : "mobiles"
+        }
+    ] 
+}
+
+get categories
+GET
+/api/category
+response : 
+[
+    {
+        "_id": "60619da7b7c5e64fe843fdba",
+        "name": "electronics",
+        "subCategories": [
+            {
+                "_id": "60619da7b7c5e64fe843fdbb",
+                "subName": "camera"
+            },
+            {
+                "_id": "60619da7b7c5e64fe843fdbc",
+                "subName": "mobiles"
+            }
+        ],
+        "__v": 0
+    },
+    {
+        "_id": "6061ab44b7c5e64fe843fdbd",
+        "name": "clothing",
+        "subCategories": [
+            {
+                "_id": "6061ab44b7c5e64fe843fdbe",
+                "subName": "men's fashion"
+            },
+            {
+                "_id": "6061ab44b7c5e64fe843fdbf",
+                "subName": "women's fashion"
+            }
+        ],
+        "__v": 0
+    }
+]
+
+CART 
+add to cart 
+POST
+/api/cart
+{
+   "productId" : "1525",
+   "quantity" : 2 
+}
+
+response :
+{
+    id : "839293"
+}
+status : 201
+
+delete from cart
+DELETE
+/api/cart
+request : 
+{
+    "productId" :"3298jakjka",
+    "isDecrement" : "Y/N"
+}
+
+response
+{
+    "productId" : "",
+    "quantity" : ""
+}
+status : 200
+
+
+
+
+
+
+
