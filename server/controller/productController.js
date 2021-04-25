@@ -12,6 +12,8 @@ exports.addProduct = (req,res)=>{
         "description":productRequest.description,
         "category":productRequest.category,
         "subCategory":productRequest.subCategory,
+        "author": productRequest.author,
+        "rating": productRequest.rating,
         "imageUrl":productRequest.imageUrl,
         "discount":productRequest.discount,
         "price": {
@@ -22,7 +24,8 @@ exports.addProduct = (req,res)=>{
     newProduct.save().then(()=>{
         res.status(201).send({_id : newProduct.id});
         return;
-    }).catch(() => {
+    }).catch(e => {
+        console.log('error : ',e);
         res.status(500).send({ error: "Internal Server Error" });
     });
 }
@@ -53,6 +56,8 @@ exports.getProducts = (req,res)=>{
     let category = req.query.category;
     let subCategory = req.query.subCategory;
     let title = req.query.title;
+    let author = req.query.author;
+    let rating = req.query.rating;
     let parameters = {};
     if(category){
         parameters['category'] = new RegExp(category,'i') ;
@@ -63,6 +68,24 @@ exports.getProducts = (req,res)=>{
     if(title){
         parameters['title'] = new RegExp(title,'i');
     }
+    if(author){
+        parameters['author'] = new RegExp(author,'i');
+    }
+    if(rating){
+        console.log('rating : ',rating.split('|'));
+        let rate = parseInt(rating[0]);
+        const ratings = [];
+        
+        rating.split('|').forEach(rating => {
+            let regexp = new RegExp("^"+ parseInt(rating));
+            ratings.push(regexp);
+        });
+
+        console.log('ratings : ',ratings);
+        //parameters['rating'] = new RegExp("^"+ rating);
+        parameters['rating'] = { $in : ratings };
+        console.log('parameter rating : ',parameters['rating']);
+    }
 
     if(page && size){
         skip = (page-1) * size;
@@ -70,7 +93,7 @@ exports.getProducts = (req,res)=>{
     }
 
     Product.find(parameters).skip(skip).limit(limit).then(product=>{
-        console.log('product : ',product);
+       // console.log('product : ',product);
         res.status(200).send(product);
         return;
     }).catch(() => {

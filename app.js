@@ -42,7 +42,7 @@ db.connect({
     });
 
     //Start listening on port
-    app.listen(port, () => {
-        console.log(`Server listening at port: ${port}`);
+    app.listen(5000, () => {
+        console.log(`Server listening at port: 5000`);
     });
 })

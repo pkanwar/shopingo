@@ -1,0 +1,151 @@
+.container {
+  height: 820px;
+  width: 100%;
+}
+
+.product-container {
+  position: relative;
+  width: 1180px;
+  background-color: #B8B8B8;
+  margin-left: 320px;
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  justify-items: center; 
+  align-items: center;
+  border: 2px solid black;
+}
+
+.slide-show {
+  height: 370px;
+  width: 1180px;
+  border : 2px solid black;
+}
+
+.product-list-class {
+    width: 1180px;
+    border: 2px solid black;
+    background-color: #F0F0F0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center; 
+  align-items: center;
+}
+
+.productItem {
+  height: 400px;
+  width: 280px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-rows: 4fr 1fr 1fr 1fr 1fr;
+  justify-items: center; 
+  align-items: center;
+  background-color: #ffff;
+  border: 1px solid black;
+}
+
+.productItem :hover {
+  cursor: pointer;
+}
+
+.productImage {
+  padding-top: 20px;
+  height: 280px;
+  width: 280px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+}
+
+.imgClass img {
+  height: 250px;
+  width: 220px;
+}
+
+.productTitle {
+  height: 30px;
+  width: 280px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: flex-start; 
+}
+
+.productTitle h3{
+  padding-left: 10px;
+  font-size: 16px;
+  margin-top: 4px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.productTitle a{
+  color: #18453B;
+}
+
+.productTitle a :hover{
+  color: #0039a6;
+}
+
+.productAuthor {
+  padding-top: 3px;
+  height: 30px;
+  width: 280px;
+  font-size: 15px;
+  padding-left: 10px;
+  font-weight: 500;
+}
+
+.productAuthor .authorName{
+  font-weight: 600;
+  color: #2F4F4F;
+}
+
+.productRating {
+  height: 30px;
+  width: 280px;
+  padding-top: 2px;
+  font-size: 16px;
+  padding-left: 10px;
+  font-weight: 500;
+}
+
+.productRating .ratingClass {
+  height: 28px;
+  width: 100px;
+  padding: 3px;
+  background-color: #00573F;
+  color: #ffff;
+}
+
+.productPrice {
+  height: 30px;
+  width: 280px;
+}
+
+.productPrice {
+ padding-left: 10px; 
+}
+
+.priceClass {
+  font-weight: 600;
+}
+
+.actualPriceClass {
+  position: relative;
+  padding-left: 7px;
+  color: #585858;
+}
+
+.discountClass {
+  position: relative;
+  padding-left: 7px;
+  color: #336600;
+}
+
+

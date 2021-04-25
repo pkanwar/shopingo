@@ -11,7 +11,8 @@ const error = {
     'ER009' : 'error occured',
     'ER010' : 'No information provided in request, Please enter product details',
     'ER011' : 'No product found with this ID',
-    'ER012' : 'No information provided in request'
+    'ER012' : 'No information provided in request',
+    'ER013' : 'No cart present with session'
 }
 
 function getError(errorCode){

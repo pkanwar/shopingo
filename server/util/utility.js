@@ -1,4 +1,7 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart');
+const User = require('../models/user');
+const Order = require('../models/order');
 
 module.exports.getUpdateMap = (updateBody)=>{
     let updateMap = {};
@@ -47,19 +50,21 @@ module.exports.getUserDetails = (user)=>{
 }
 
 module.exports.getPrice = (productId,quantity)=>{
-    const totalPriceMap = {};
-    Product.findOne({_id: productId}).then(product=>{
-        const priceMap = product.price;
-        console.log('priceMap : ',priceMap);
-        let totalPrice = priceMap.actualPrice * quantity;
-        let discountedPrice = null;
-        if(priceMap.discountedPrice){
-            discountedPrice = priceMap.discountedPrice * quantity;
-        }
-        totalPriceMap['totalPrice'] = totalPrice;
-        totalPriceMap['discountedPrice'] = discountedPrice;
-        console.log('priceMap : ',totalPriceMap);
-        return totalPriceMap;
+    return new Promise((resolve,reject)=>{
+        const totalPriceMap = {};
+        Product.findOne({_id: productId}).then(product=>{
+            const priceMap = product.price;
+            console.log('priceMap : ',priceMap);
+            let totalPrice = priceMap.actualPrice * quantity;
+            let discountedPrice = null;
+            if(priceMap.discountedPrice){
+                discountedPrice = priceMap.discountedPrice * quantity;
+            }
+            totalPriceMap['totalPrice'] = totalPrice;
+            totalPriceMap['discountedPrice'] = discountedPrice;
+            console.log('totalPriceMap : ',totalPriceMap['totalPrice']);
+            resolve(totalPriceMap);
+        })
     })
 }
 
@@ -73,3 +78,58 @@ module.exports.getCartInfo = (cartBody)=>{
     cartMap['quantity'] = quantity;
     return cartMap;
 } 
+
+const getCart = (sessionId)=>{
+    return new Promise((resolve,reject)=>{
+        let cartItems = [];
+        Cart.find({sessionId}).then(cartList=>{
+            cartList.forEach(item=>{
+                let cartMap = {};
+                cartMap['productId'] = item.productId;
+                cartMap['quantity'] = item.quantity;
+                cartMap['totalPrice'] = item.totalPrice;
+                cartMap['discountedPrice'] = item.discountedPrice;
+                cartItems.push(cartMap);
+            })
+            console.log('cartItems : ',cartItems);
+            resolve(cartItems);
+        })
+    })
+}
+
+module.exports.updateUserCart = (loginId,sessionId)=>{
+    return new Promise((resolve,reject)=>{
+        User.findOne({loginId}).then(user=>{
+            getCart(sessionId).then(cartItems=>{
+                let updatedCart = [];
+                if(cartItems.length > 0){
+                    if(user.cart){
+                        cartItems.array.forEach(cartItem => {
+                            let itemPresent = false;
+                            user.cart.forEach(userCartItem=>{
+                                if(userCartItem.productId === cartItem.productId){
+                                  itemPresent = true;
+                                  userCartItem.quantity += cartItem.quantity;
+                                  updatedCart.push(userCartItem);
+                                }
+                            })
+                            if(!itemPresent){
+                              updatedCart.push(cartItem);
+                            }
+                        });
+                    }else{
+                      updatedCart = cartItems;
+                    }
+                    console.log('updatedCart : ',updatedCart);
+                    User.updateOne({_id:user.id},{cart:updatedCart}).then(()=>{
+                        Cart.deleteMany({sessionId});
+                    })
+                }
+            })
+        })
+        resolve();
+    })
+}
+
+
+

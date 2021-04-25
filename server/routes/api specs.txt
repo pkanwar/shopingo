@@ -95,6 +95,7 @@ response :
         },
         "_id": "606172b098491d178c3f7d61",
         "title": "sony cybershot",
+        "author":"jk rowling",
         "description": "cybershot",
         "category": "electronics",
         "subCategory": "camera",
@@ -163,9 +164,15 @@ add to cart
 POST
 /api/cart
 {
-   "productId" : "1525",
-   "quantity" : 2 
+    "productId" : "606034b5df0b9e4598e50898",
+    "title" : "nikkon camera",
+    "imageUrl" :"https://images-na.ssl-images-amazon.com/images/I/61VFkA-rceL._SL1000_.jpg",
+    "discount" :"10",
+    "quantity" : 2,
+    "actualPrice" : "10000",
+    "discountedPrice" :"9000"
 }
+
 
 response :
 {
@@ -190,8 +197,29 @@ response
 status : 200
 
 
+ORDER 
+create Order 
+request : 
+{
+    "items" : [
+        {
+            "productId":"606034b5df0b9e4598e50898",
+            "title":"nikkon camera",
+            "imageUrl":"https://images-na.ssl-images-amazon.com/images/I/61VFkA-rceL._SL1000_.jpg",
+            "quantity":"2",
+            "discount":"10",
+            "actualPrice":"10000",
+            "discountedPrice":"9000"
+        }
+    ]
+}
 
 
+response :
+{
+    {message : order created successfully}
+}
+status : 201
 
 
 

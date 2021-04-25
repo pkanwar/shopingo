@@ -1,0 +1,114 @@
+
+.navbar {
+  background-color: #2F4F4F;
+  height: 70px;
+}
+.navbar .navGrid {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+    justify-items: center; 
+    align-items: center;
+    border: 2px solid white;
+    padding: 15px 15px;
+}
+
+
+#navItem1 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-items: center; 
+  align-items: center;
+}
+
+#navItem2 {
+  height: 40px;
+}
+
+#navItem2 form{
+  width: 480px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  justify-items: center; 
+  align-items: center;
+  grid-gap: 0px;
+}
+
+
+#searchInput {
+  font-family: 'Poppins' sans-serif;
+  border: 2px solid #008B8B;
+  font-weight: 450;
+  font-size: 15px;
+  margin-left: 10px;
+  color: #2F4F4F;
+  width: 470px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 10px;
+  outline: none;
+}
+
+#searchBtn {
+  height: 38px;
+  width: 50px;
+}
+
+#dropdownBtn {
+  height: 35px;
+  width: 50px;
+}
+
+#navItem3 {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  justify-items: center; 
+  align-items: center;
+  width: 140px;
+  height: 35px;
+}
+
+#navItem4 {
+  border: 2px solid white;
+}
+
+#navItem5 {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  justify-items: center; 
+  align-items: center;
+  color: #ffffff;
+  width: 70px;
+}
+
+#logoImg img {
+  width: 40px;
+  height: 40px;   
+}
+
+#cartItem1 img{
+  width: 40px;
+  height: 40px;
+}
+
+#cartItem2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+#loginBtn{
+  font-size: 15px;
+  font-weight: 600;
+  width: 130px;
+  height: 35px;
+  width: 150px;
+  color: #2F4F4F;
+  background-color:#ffffff;
+  border: 0px;
+  border-radius: 10px;
+}
+
+#title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 20px;
+}

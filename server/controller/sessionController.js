@@ -1,9 +1,13 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const error = require('../util//error');
+const util = require('../util/utility');
+const Cart = require('../models/cart');
+
 
 exports.loginUser = (req,res)=>{
     const sessionId =req.sessionID;
+    console.log('sessionId : ',sessionId);
     if(!req.body){
         res.status(400).send(error.getError('ER005'));
         return;
@@ -22,8 +26,10 @@ exports.loginUser = (req,res)=>{
             res.status(400).send(error.getError('ER007'));
             return;
           }
+            
           req.session.userId = user.id;
           res.status(204).send();
+
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });
     });

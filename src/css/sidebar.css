@@ -1,0 +1,105 @@
+.sidebar {
+  position: absolute;
+  height: 820px;
+  width: 300px;
+  float: left;
+  padding-left: 8px;
+  padding-top: 8px;
+  background-color: #B8B8B8;
+}
+
+.sidebar-grid {
+  display: grid;
+  grid-template-rows: 1fr 3fr 3fr 3fr;
+  justify-items: center; 
+  align-items: center;
+  height: 800px;
+  width: 280px;
+  grid-gap: 0px;
+  position: relative;
+  background-color: #ffffff;
+}
+
+
+#sidebar-item1{
+  margin-top: 0px;
+  border: 2px solid black;
+  height: 50px;
+  width: 280px;
+  position: relative;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+#book-filter-title{
+  color:#2F4F4F;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#sidebar-item2{
+  margin-top: 0px;
+  border: 2px solid black;
+  height: 250px;
+  width: 280px;
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  justify-items: center; 
+  align-items: center;
+}
+
+#sidebar-item3{
+  margin-top: 0px;
+  border: 2px solid black;
+  height: 250px;
+  width: 280px; 
+  position: relative;
+}
+
+#sidebar-item4{
+  margin-top: 0px;
+  height: 250px;
+  width: 280px;
+  position: relative;
+  border: 2px solid black;
+}
+
+.filterTitle {
+  height: 30px;
+  width: 278px;
+  padding-top: 2px;
+  padding-left: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2F4F4F;
+  border: 1px solid black;
+}
+
+.filterContent {
+  height: 220px;
+  width: 278px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+
+.itemLabel {
+  position: relative;
+  padding-left: 10px;
+}
+
+.productRating .ratingClass {
+  height: 28px;
+  width: 100px;
+  padding: 3px;
+  background-color: #00573F;
+  color: #ffff;
+}

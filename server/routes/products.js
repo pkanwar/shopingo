@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const productController = require('../controller/productController');
 
 
-router.post('/add',auth.authenticate,productController.addProduct);
+router.post('/add',productController.addProduct);
 
 router.get('/:id',auth.authenticate,productController.getProduct);
 

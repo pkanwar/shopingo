@@ -12,18 +12,33 @@ const orderSchema = new Schema({
                 type: String,
                 required: true
             },
-            quantity : {
+            title : {
+                type: String,
+                required: true
+            },
+            imageUrl : {
+                type: String,
+                required: true
+            },
+            quantity : Number,
+            discount: Number,
+            actualPrice : {
                 type: Number,
                 required: true
             },
             totalPrice : Number,
-            discountedPrice : Number            
+            discountedPrice : Number,
+            isDiscountAvailable : {
+                type: String,
+                required : true
+            }
         }   
     ],
-    amount : {
+    totalAmount : {
         type:  Number,
         required: true
-    },
+        },
+    amountToBePaid : Number,
     status : {
         type : String,
         required : true
