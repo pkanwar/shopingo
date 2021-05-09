@@ -2,6 +2,8 @@
 .navbar {
   background-color: #2F4F4F;
   height: 70px;
+  width: 100%;
+  border: 2px solid #ffffff;
 }
 .navbar .navGrid {
     display: grid;

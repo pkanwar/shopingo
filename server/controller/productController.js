@@ -34,10 +34,10 @@ exports.getProduct = (req,res)=>{
     const prodId = req.params.id;
     Product.findById({_id : prodId},(err,product)=>{
         if(err){
-            res.status(400).send(error.getError('ER009'));
+            return res.status(400).send(error.getError('ER009'));
         }
         if(!product){
-            res.status(404).send(error.getError('ER011'));
+            return  res.status(404).send(error.getError('ER011'));
         }
         res.status(200).send(product);
         return;

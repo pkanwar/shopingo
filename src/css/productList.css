@@ -6,7 +6,7 @@
 .product-container {
   position: relative;
   width: 1180px;
-  background-color: #B8B8B8;
+  /* background-color: #B8B8B8; */
   margin-left: 320px;
   display: grid;
   grid-template-rows: 1fr 5fr;

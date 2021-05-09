@@ -1,8 +1,11 @@
 import React from 'react';
 import '../css/productList.css';
 import '../util/Sidebar';
+import '../util/Navbar';
 import Sidebar from '../util/Sidebar';
 import ProductItem from '../util/ProductItem';
+import Navbar from '../util/Navbar';
+import SlideShow from '../util/SlideShow';
 
 class ProductList extends React.Component {
     
@@ -64,16 +67,21 @@ class ProductList extends React.Component {
         );
 
         return (
+        <div>
+        <Navbar />
         <div className="container" >
             <Sidebar products={products} onCheckBoxClick={this.onCheckBoxClick}  />
             <div className="product-container" style={productContainerStyle} >
-                <div className="slide-show" ></div>
+                <div className="slide-show" >
+                    <SlideShow />
+                </div>
                 <div className="product-list-class" style={productListStyle} >
                     <div className="product-grid" style={productGridStyle} >
                         {productList}
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         );
     }

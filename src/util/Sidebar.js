@@ -53,14 +53,26 @@ class CheckBox extends React.Component {
 
     render(){
         const items = this.props.items;
-        const itemList = items.map((value,index)=>
-            <table key={index} className="filterItemClass" >
-                <tr>
-                <td className="itemCheckbox" ><input type="checkbox" name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
-                <td className="itemLabel"  ><label>{value}</label></td>
-                </tr>
-            </table>
-        )
+        let itemList = "";
+        if(this.props.name === 'rating'){
+            itemList = items.map((value,index)=>
+                <table key={index} className="filterItemClass" >
+                    <tr>
+                    <td className="itemCheckbox" ><input type="checkbox" name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
+                    <td className="itemLabel"  ><label className="labelClass" ><span className="starClass" >{value} <i class="fa fa-star"></i></span></label></td>
+                    </tr>
+                </table>
+            )
+        }else{
+            itemList = items.map((value,index)=>
+                <table key={index} className="filterItemClass" >
+                    <tr>
+                    <td className="itemCheckbox" ><input type="checkbox" name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
+                    <td className="itemLabel"  ><label className="labelClass" >{value}</label></td>
+                    </tr>
+                </table>
+            )
+        }
         return itemList;
     }
 }
@@ -87,6 +99,7 @@ class Sidebar extends React.Component {
     console.log('ratingList : ',ratingList);
     const authorName = "author";
     const genreName = "genre"
+    const ratingName = "rating"
     const sideBar = 
     <div className="sidebar" >
         <div className="sidebar-grid" >
@@ -113,8 +126,9 @@ class Sidebar extends React.Component {
                 <div className='filterTitle'>Customer Rating</div>
                 <div className='filterContent'>
                 <div className="filterColumns" >
-                <table className="filterItemClass" >
-                </table>
+                <div className="filterColumns" >
+                    <CheckBox items={ratingList} name={ratingName} handleCheckboxClick={this.handleCheckboxClick} />
+                </div>
                 </div>
                 </div>
             </div>

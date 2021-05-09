@@ -1,16 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from './util/Navbar';
+//import Navbar from './util/Navbar';
 //import Sidebar from './util/Sidebar';
 import ProductList from './component/ProductList';
+import ProductDetail from './component/ProductDetail';
+//import Home from './component/Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-class ReaderClubApp extends React.Component {
-  render(){
-    return <div>
-             <Navbar />
-             <ProductList />
-          </div>
-}
+
+function ReaderClubApp() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={ProductList} />
+          <Route exact path="/productDetail" component={ProductDetail} />
+        </Switch>
+      </Router>
+    );
 }
 
 ReactDOM.render(
