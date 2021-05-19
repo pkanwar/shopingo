@@ -33,13 +33,14 @@ class ProductItem extends React.Component {
         
         const productItem =
             <div className="productItem" >
+                <a onClick={this.handleChange} target="_blank" href={`/productDetail/${product._id}`} rel="noreferrer">
                 <div className="productImage" >
                     <div className="imgClass" >
                         <img src={product.imageUrl} alt="BOOK" />
                     </div>
                 </div>
                 <div className="productTitle" >
-                    <h3><a onClick={this.handleChange} href="/product">{product.title}</a></h3>
+                    <h3>{product.title}</h3>
                 </div>
                 <div className="productAuthor" >
                     Written By : <span className="authorName">{product.author}</span>
@@ -50,6 +51,7 @@ class ProductItem extends React.Component {
                 <div className="productPrice" >
                     {priceItem}
                 </div>
+                </a>
             </div>
 
         return (productItem);

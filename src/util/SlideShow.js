@@ -26,7 +26,6 @@ function SlideShow()
             resetTimeout();
         };
     }, [colors.length, index]);
-    console.log('index : ',index);
     return (
         <div className="slideshow" >
             <div className="slideshowSlider" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }} >

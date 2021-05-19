@@ -45,9 +45,9 @@ class CheckBox extends React.Component {
     
     handleOnCheck(e)
     {
-        console.log('value on check ',e.target.value);
-        console.log('name on check ',e.target.name);
-        this.props.handleCheckboxClick(e.target.name,e.target.value);
+        //console.log('value on check ',obj.value);
+        console.log('name on check ',e.target);
+       this.props.handleCheckboxClick(e.target.name,e.target.value);
     }
 
 
@@ -58,7 +58,7 @@ class CheckBox extends React.Component {
             itemList = items.map((value,index)=>
                 <table key={index} className="filterItemClass" >
                     <tr>
-                    <td className="itemCheckbox" ><input type="checkbox" name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
+                    <td className="itemCheckbox" ><input type="checkbox"  name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
                     <td className="itemLabel"  ><label className="labelClass" ><span className="starClass" >{value} <i class="fa fa-star"></i></span></label></td>
                     </tr>
                 </table>

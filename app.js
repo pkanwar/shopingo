@@ -24,13 +24,14 @@ db.connect({
 }).then(()=>{
     //Handle /api with the api middleware
     app.use('/api', session({
-        genid() {
-            return genuuid() // use UUIDs for session IDs
-        },
-        store: new MongoStore({ client: db.getClient() }),
-        secret: process.env.SESSION_SECRET,
-        resave: true,
-        saveUninitialized: false
+        // genid() {
+        //     return genuuid() // use UUIDs for session IDs
+        // },
+        // store: new MongoStore({ client: db.getClient() }),
+        secret: process.env.SESSION_SECRET
+        // resave: true,
+        // saveUninitialized: false,
+        // maxAge : 1000*60*60*24
     }), api);
 
     //Handle non-api routes with static build folder

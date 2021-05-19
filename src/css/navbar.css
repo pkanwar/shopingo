@@ -1,16 +1,16 @@
 
 .navbar {
+  position: fixed;
+  z-index : 999;
   background-color: #2F4F4F;
   height: 70px;
   width: 100%;
-  border: 2px solid #ffffff;
 }
 .navbar .navGrid {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
     justify-items: center; 
     align-items: center;
-    border: 2px solid white;
     padding: 15px 15px;
 }
 

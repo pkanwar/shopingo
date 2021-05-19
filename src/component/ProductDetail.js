@@ -7,13 +7,13 @@ class ProductDetail extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            id : "607319a401611429dc066ccd",
+            id : this.props.match.params.id,
             product: {}
         }
     }
 
     componentDidMount(){
-        console.log('id : ',this.state.id);
+        console.log('props id : ',this.props.match.params.id);
         const fetchUrl = '/api/products/' + this.state.id;
         fetch(fetchUrl).then(res=>{
             console.log('product : '+ res);
@@ -27,6 +27,42 @@ class ProductDetail extends React.Component {
             })
         })
     }
+
+    createPostRequest(product)
+    {
+        let postMap = {};
+       console.log('product id : ',product._id);
+        postMap['productId'] = product._id;
+        postMap['title'] = product.title;
+        postMap['imageUrl'] = product.imageUrl;
+        postMap['discount'] = product.discount;
+        postMap['quantity'] = 1;
+        postMap['actualPrice'] = product.price.actualPrice;
+        postMap['discountedPrice'] = product.price.discountedPrice;
+        console.log('postmap : ',postMap);
+        return postMap;
+    }
+
+    handleOnlick(product)
+   {
+       console.log('product clicked : ',product);
+       const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this.createPostRequest(product))
+        };
+
+        fetch('/api/cart/', requestOptions).then(res=>{
+            console.log("status : ", res.status);
+            if(res.status === 200)
+            {
+                return res.json();
+            }
+        }).then(data=>{
+            console.log("data : ",data);
+        })
+
+   }
 
     render(){
         const product = this.state.product;
@@ -55,7 +91,7 @@ class ProductDetail extends React.Component {
                                 </div>
                             </div>
                             <div className="product-buy" >
-                                <div className="product-button" ><input type="button" value="ADD TO CART" class="btn btn-primary btn-block" /></div>
+                                <div className="product-button" ><input type="button" value="ADD TO CART" onClick={this.handleOnlick.bind(this,product)} class="btn btn-primary btn-block" /></div>
                             </div>
                         </div>
                         <div className="detail-container" >

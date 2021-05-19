@@ -6,7 +6,8 @@ const cartSchema = new Schema({
        {
             productId : {
                 type: String,
-                required: true
+                required: true,
+                unique : false
             },
             title : {
                 type: String,

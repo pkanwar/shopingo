@@ -6,7 +6,7 @@ function Navbar() {
         <div className='navbar'>
           <div className='navGrid'>
             <div className='navItem' id='navItem1' >
-                <div id='logoImg' ><img src='images/home/book.png' alt='cart' /></div>
+                <div id='logoImg' ><img src='/images/home/book.png' alt='cart' /></div>
                 <div id='title' >Reader's Club</div>
             </div>
             <div className='navItem' id='navItem2' >
@@ -24,7 +24,7 @@ function Navbar() {
                More
             </div>
             <div className='navItem' id='navItem5' >
-                <div id='cartItem1' ><img src='images/home/shopping-cart.png' alt='cart' /></div>
+                <div id='cartItem1' ><img src='/images/home/shopping-cart.png' alt='cart' /></div>
                 <div id='cartItem2' >0</div>
             </div>
 

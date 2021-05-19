@@ -57,11 +57,11 @@ class ProductList extends React.Component {
         }
 
         let productGridHeight = parseInt(50 + (parseInt(Math.ceil(noOfProducts/4)))*400);
-        console.log('product grid height:', productGridHeight);
+       // console.log('product grid height:', productGridHeight);
         const productGridStyle = {
             height : productGridHeight
         } 
-        console.log('products : ', products);
+       // console.log('products : ', products);
         const productList = products.map((product,index)=>
             <ProductItem key={index} onCheckBoxClick={this.onCheckBoxClick} product={product} />
         );
