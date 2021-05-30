@@ -14,7 +14,8 @@ class ProductList extends React.Component {
         this.state = {
             products : [],
             page : 1,
-            size : 16
+            size : 16,
+            cartQauntity : 0
         }
     }
 
@@ -36,15 +37,24 @@ class ProductList extends React.Component {
                 // throw error 500
             }
         }).then((productList)=>{
-            console.log('products list : '+ productList);
             this.setState({
                 products : productList
             });
         })
+        
+        const fetchCartUrl = '/api/cart/items/';
+        fetch(fetchCartUrl).then((res)=>{
+            console.log('res : ' + res.status);
+            return res.json();
+        }).then(cart=>{
+            this.setState({
+                cartQauntity : cart.cartQauntity
+            })
+        })
     }
 
     render(){
-
+        console.log('error show : ' + this.state.errorShow);
         const products = this.state.products;
         let noOfProducts =  products.length;
         let productListSize = 50 + (parseInt(Math.ceil(noOfProducts/4)))*400;
@@ -57,18 +67,16 @@ class ProductList extends React.Component {
         }
 
         let productGridHeight = parseInt(50 + (parseInt(Math.ceil(noOfProducts/4)))*400);
-       // console.log('product grid height:', productGridHeight);
         const productGridStyle = {
             height : productGridHeight
         } 
-       // console.log('products : ', products);
         const productList = products.map((product,index)=>
             <ProductItem key={index} onCheckBoxClick={this.onCheckBoxClick} product={product} />
         );
 
         return (
         <div>
-        <Navbar />
+        <Navbar quantity={this.state.cartQauntity} />
         <div className="container" >
             <Sidebar products={products} onCheckBoxClick={this.onCheckBoxClick}  />
             <div className="product-container" style={productContainerStyle} >

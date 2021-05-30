@@ -16,11 +16,7 @@ class ProductItem extends React.Component {
     render()
     {
         const product = this.props.product;
-
-        console.log(product.title);
-        let priceItem ="";
-        console.log(product.price.discount);
-    
+        let priceItem ="";    
         if(product.discount)
         {
             priceItem = 

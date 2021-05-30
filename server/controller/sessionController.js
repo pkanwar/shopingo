@@ -7,7 +7,7 @@ const Cart = require('../models/cart');
 
 exports.loginUser = (req,res)=>{
     const sessionId =req.sessionID;
-    console.log('sessionId : ',sessionId);
+    console.log('login sessionId : ',sessionId);
     if(!req.body){
         res.status(400).send(error.getError('ER005'));
         return;

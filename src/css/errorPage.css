@@ -1,0 +1,76 @@
+
+.error-section {
+  margin-top: 150px;
+  width: 550px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  justify-items: center; 
+  align-items: center;
+}
+
+.error-logo {
+  width: 200px;
+  height: 200px;
+}
+
+#errorImg img{
+  margin-top: 0px;
+  width: 200px;
+  height: 200px;
+} 
+  
+.error-page {
+  width: 350px;
+  height: 200px;
+  background-color: #fff;
+}
+
+.error-close {
+  height: 50px;
+  margin-top: 40px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+}
+
+.error-close button{
+  font-size: 15px;
+  outline: none;
+}
+
+.error-content {
+  padding-top: 70px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.error-content span{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.errorpage-container-active {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index : 999;
+    height: 820px;
+    width: 100%;  
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-items: center; 
+    align-items: center;
+  }
+  
+  .errorpage-container-passive {
+    background-color: rgba(0,0,0,0);
+  }

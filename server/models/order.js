@@ -8,38 +8,37 @@ const orderSchema = new Schema({
     },
     items : [
         {
-            productId : {
-                type: String,
-                required: true
-            },
-            title : {
-                type: String,
-                required: true
-            },
-            imageUrl : {
-                type: String,
-                required: true
-            },
-            quantity : Number,
-            discount: Number,
-            actualPrice : {
-                type: Number,
-                required: true
-            },
-            totalPrice : Number,
-            discountedPrice : Number,
-            isDiscountAvailable : {
-                type: String,
-                required : true
-            }
-        }   
+             productId : {
+                 type: String,
+                 required: true,
+                 unique : false
+             },
+             title : {
+                 type: String,
+                 required: true
+             },
+             imageUrl : {
+                 type: String,
+                 required: true
+             },
+             quantity : Number,
+             discount: Number,
+             actualPrice : {
+                 type: Number,
+                 required: true
+             },
+             discountedPrice: Number
+         }
     ],
-    totalAmount : {
+    status : {
+        type : String,
+        required : true
+    },
+    amount : {
         type:  Number,
         required: true
         },
-    amountToBePaid : Number,
-    status : {
+    currency : {
         type : String,
         required : true
     }

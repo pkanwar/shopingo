@@ -27,7 +27,9 @@ module.exports.getUpdateMap = (updateBody)=>{
 module.exports.getUserDetails = (user)=>{
 
     const userMap = {};
-
+    if(user._id){
+        userMap['userId'] = user._id;
+    }
     if(user.email){
         userMap['email'] = user.email;
     }
@@ -46,6 +48,7 @@ module.exports.getUserDetails = (user)=>{
     if(user.cart){
         userMap['cart'] = user.cart;
     }
+    userMap['status'] = 'SUCCEEDED'
     return userMap;
 }
 
@@ -131,5 +134,12 @@ module.exports.updateUserCart = (loginId,sessionId)=>{
     })
 }
 
-
+module.exports.getCartQuantity = (sessionId)=>{
+    Cart.findOne({sessionId}).then(cart=>{
+        if(!cart || cart.items.length===0){
+            return 0;
+        }
+        return cart.items.length;
+    })
+}
 

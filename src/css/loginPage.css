@@ -1,0 +1,93 @@
+
+  .loginpage-content {
+    position: absolute;
+    margin-top: 150px;
+    width: 800px;
+    height: 400px;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 3fr 5fr;
+    justify-items: center; 
+    align-items: center;
+  }
+
+.login-logo {
+  height: 400px;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+}  
+
+.login-form {
+  height: 400px;
+  width: 500px;
+}
+
+
+.login-form-content {
+  height: 325px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+  padding-top: 50px;
+}
+
+.register-form {
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+}
+
+.login-btn {
+  position: relative;
+  margin-top: 10px;
+  width: 400px;
+}
+
+.or-block {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.register-title {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#loginId {
+  width: 400px;
+}
+
+#passwordId {
+  width: 400px;
+}
+
+#ReaderImg img{
+  margin-top: 25px;
+  height: 350px;
+  width: 250px;
+} 
+
+#loginMsg {
+  position: relative;
+  margin-left: 50px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#passwordMsg {
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}

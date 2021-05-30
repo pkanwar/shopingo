@@ -8,10 +8,11 @@
 }
 .navbar .navGrid {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-items: center; 
     align-items: center;
     padding: 15px 15px;
+    border: 2px solid #fff;
 }
 
 
@@ -43,7 +44,7 @@
   font-size: 15px;
   margin-left: 10px;
   color: #2F4F4F;
-  width: 470px;
+  width: 420px;
   height: 40px;
   padding: 5px;
   border-radius: 10px;
@@ -70,16 +71,29 @@
 }
 
 #navItem4 {
-  border: 2px solid white;
+  width: 180px;
+  height: 35px;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.welcome-class {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+ 
 }
 
 #navItem5 {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 3fr 1fr;
   justify-items: center; 
-  align-items: center;
-  color: #ffffff;
-  width: 70px;
+  align-items: center; */
+  width: 120px;
+}
+
+#navItem6 {
+  width: 120px;
 }
 
 #logoImg img {
@@ -97,7 +111,7 @@
   font-weight: 600;
 }
 
-#loginBtn{
+#loginlogoutBtn{
   font-size: 15px;
   font-weight: 600;
   width: 130px;
@@ -113,4 +127,48 @@
   color: #ffffff;
   font-weight: 600;
   font-size: 20px;
+}
+
+
+#cartBtn{
+  font-size: 15px;
+  font-weight: 600;
+  height: 35px;
+  width: 120px;
+  color: #2F4F4F;
+  background-color:#ffffff;
+  border: 0px;
+  border-radius: 10px;
+}
+
+#orderBtn {
+  font-size: 15px;
+  font-weight: 600;
+  height: 35px;
+  width: 120px;
+  color: #2F4F4F;
+  background-color:#ffffff;
+  border: 0px;
+  border-radius: 10px;
+}
+
+.loginpage-container-active {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index : 999;
+  height: 820px;
+  width: 100%;  
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+}
+
+.loginpage-container-passive {
+  background-color: rgba(0,0,0,0);
 }

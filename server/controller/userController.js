@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Cart = require('../models/cart');
 const bcrypt = require('bcryptjs');
 const error = require('../util/error');
 const util = require('../util/utility');
@@ -41,7 +42,7 @@ exports.updateUser = (req,res)=>{
 }
 
 exports.getUserInfo = (req,res)=>{
-    const userId = req.session.userId;
+    const userId = req.session.userId;    
     User.findById({_id : userId},(err,user)=>{
         if(err){
             console.log('err : ',err);
@@ -49,8 +50,9 @@ exports.getUserInfo = (req,res)=>{
             return;
         }
         console.log('user : ', user);
-        const userMap = util.getUserDetails(user);
-        res.status(200).send(userMap);
+        const userMap = util.getUserDetails(user);           
+       res.status(200).send(userMap);
+        
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });
     });

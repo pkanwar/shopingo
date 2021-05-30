@@ -3,44 +3,66 @@ const error = require('../util//error');
 
 exports.addToCart = (req,res)=>{
     const sessionId = req.sessionID;
-    console.log('sessionId : ', sessionId);
     Cart.findOne({sessionId}).then(cart=>{
         let cartList = [];
         if(cart)
         {
-            console.log('cart present');
-
             let isProductPresent = false;
+            let productStatus = "UPDATED";
             cart.items.forEach(item=>{
                 if(item.productId===req.body.productId){
                     item.quantity += req.body.quantity;
                     console.log('quantity : ',item.quantity);
                     isProductPresent = true;
                 }
-                console.log('item : ',item);
             })
-            console.log('isproduct : ',isProductPresent);
             if(!isProductPresent){
                 cart.items.push(req.body);
+                productStatus = "ADDED";
             }
 
             cartList = cart.items;
             
-            console.log('cartlist : '.cartList);
             Cart.updateOne({sessionId},{items:cartList}).then(()=>{
-                res.status(200).send({message : "cart successfully updated"});
+                res.status(200).send({
+                    message : "cart successfully updated",
+                    productStatus : productStatus,
+                    status : 'SUCCEEDED'
+            });
             })
         }else{
             cartList.push(req.body);
-            console.log('cartList : ',cartList);
             const newCart = new Cart({items:cartList,sessionId});
             newCart.save().then(()=>{
-                res.status(200).send({message : "cart successfully added"});
+                res.status(200).send({
+                    message : "cart successfully added",
+                    productStatus : "ADDED",
+                    status : 'SUCCEEDED'
+                });
             })
         }
 
-    })
+    })   
+}
+exports.updateToCart = (req,res)=>{
+    const sessionId = req.sessionID;
+    const userId = req.session.userId;
     
+    Cart.findOne({sessionId}).then(cart=>{
+        if(!cart){
+            return res.status(404).send(error.getError('ER013'));
+        }
+
+        Cart.updateOne({sessionId},{userId:userId}).then(()=>{
+            return res.status(200).send({
+                message : 'cart updated successfully',
+                status : 'SUCCEEDED'
+            });
+        })
+    }).catch(e=>{
+        res.status(500).send(error.getError('ER009'));
+    })
+
 }
 
 
@@ -50,7 +72,7 @@ exports.deleteFromCart = (req,res)=>{
     console.log('sessionId : ', sessionId);
     Cart.findOne({sessionId}).then(cart=>{
         if(!cart){
-            res.status(400).send(error.getError('ER013'));
+            return res.status(400).send(error.getError('ER013'));
         }
         const successMsg = {}
         cart.items.forEach((item,index)=>{
@@ -60,6 +82,9 @@ exports.deleteFromCart = (req,res)=>{
                     item.quantity -= 1;
                     successMsg['isItemDeleted'] = 'N';
                     successMsg['quantity'] = item.quantity;
+                    if(item.quantity <= 0){
+                        cartItemIndex = index;
+                    }
                 }else{
                     cartItemIndex = index;
                 }
@@ -70,8 +95,9 @@ exports.deleteFromCart = (req,res)=>{
             successMsg['isItemDeleted'] = 'Y';
             successMsg['quantity'] = -1;
         }
-        Cart.updateOne({sessionId},{items:cart.items}).then(()=>{
-            res.status(200).send(successMsg);
+        successMsg['status'] = 'SUCCEEDED';
+        Cart.updateOne({sessionId},{items:cart.items}).then(updatedCart=>{
+            return res.status(200).send(successMsg);
         })
     })
     
@@ -80,11 +106,14 @@ exports.deleteFromCart = (req,res)=>{
 exports.getCart = (req,res)=>{
     const sessionId = req.sessionID;
     console.log("sessionId : " + sessionId);
+    console.log("user id : ", req.session.userId )
     try{
     Cart.findOne({sessionId}).then(cart=>{
-        if(!cart){
-            res.status(404).send(error.getError('ER013'));
+        if(!cart || cart.items.length===0){
+            return res.status(404).send(error.getError('ER013'));
         }
+
+        console.log('cart : ',cart);
         let result = {};
         let totalPrice = 0;
         let actualPrice = 0;
@@ -109,17 +138,20 @@ exports.getCart = (req,res)=>{
         result['discount'] = discount;
         result['totalPrice'] = totalPrice;
         result['cartQuantity'] = cart.items.length;
-       
+        result['status'] = 'SUCCEEDED';
+
+        console.log('result : ' + result);
+
         res.status(200).send(result);
     })
   }catch(error){
-        res.status(400).send(error.getError('ER009'));
+        return res.status(400).send(error.getError('ER009'));
   }
 
 }
 
 exports.getCartById = (req,res)=>{
-    const sessionId = req.params.sessionId;
+    const sessionId = req.sessionID;
     console.log("sessionId : " + sessionId);
     Cart.findOne({sessionId}).then(cart=>{
         if(!cart){
@@ -149,8 +181,29 @@ exports.getCartById = (req,res)=>{
         result['discount'] = discount;
         result['totalPrice'] = totalPrice;
         result['cartQuantity'] = cart.items.length;
-       
+        result['status'] = 'SUCCEEDED';
+
         res.status(200).send(result);
     })
+}
 
+exports.isItemPresent = (req,res)=>{    
+    let sessionId = req.sessionID;
+    let itemId = req.params.itemId;
+    console.log('item id '.itemId);
+    let isProductPresent = false;
+    Cart.findOne({sessionId}).then(cart=>{
+        if(!cart || cart.items.length===0){
+            return res.status(404).send(error.getError('ER013'));
+        }
+        cart.items.forEach(item=>{
+            if(item.productId===itemId){
+                isProductPresent = true;
+            }
+        })
+        res.status(200).send({
+            isProductPresent : isProductPresent,
+            status : 'SUCCEEDED'
+        })
+    })
 }

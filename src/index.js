@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 import ProductList from './component/ProductList';
 import ProductDetail from './component/ProductDetail';
 import ProductCart from './component/ProductCart';
+import ProductOrder from './component/ProductOrder';
+import LoginPage from './util/LoginPage';
+import ErrorPageOrder from './util/ErrorPageOrder';
 //import Home from './component/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -16,6 +19,9 @@ function ReaderClubApp() {
           <Route exact path="/" component={ProductList} />
           <Route exact path="/productDetail/:id" component={ProductDetail} />
           <Route exact path="/productCart/" component={ProductCart} />
+          <Route exact path="/productOrder/" component={ProductOrder} />
+          <Route exact path="/login/" component={LoginPage} />
+          <Route exact path="/error/:errorParam" component={ErrorPageOrder} />
         </Switch>
       </Router>
     );
