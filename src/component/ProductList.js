@@ -1,11 +1,12 @@
 import React from 'react';
 import '../css/productList.css';
-import '../util/Sidebar';
+import '../util/Sidebar-old';
 import '../util/Navbar';
 import Sidebar from '../util/Sidebar';
 import ProductItem from '../util/ProductItem';
 import Navbar from '../util/Navbar';
 import SlideShow from '../util/SlideShow';
+import {getProducts,getCart} from '../action/productListAction.js';
 
 class ProductList extends React.Component {
     
@@ -19,42 +20,17 @@ class ProductList extends React.Component {
         }
     }
 
-    onCheckBoxClick(name,val){
-        
-        console.log('name clicked !! ',name);
-        console.log('value clicked !! ',val);
+    onCheckBoxClick(e){
+        console.log('name clicked !! ',e.target.name);
+        console.log('value clicked !! ',e.target.value);
     }
 
     componentDidMount(){
-        let pageNo = this.page;
-        let numberOfItems = this.size;
-        const fetchProductsUrl = `/api/products?page=${pageNo}&size=${numberOfItems}&title=&category=&subCategory=`;
-        fetch(fetchProductsUrl).then(res=>{
-            console.log('products response : '+ res);
-            if(res.status===200){
-                return res.json();
-            }else{
-                // throw error 500
-            }
-        }).then((productList)=>{
-            this.setState({
-                products : productList
-            });
-        })
-        
-        const fetchCartUrl = '/api/cart/items/';
-        fetch(fetchCartUrl).then((res)=>{
-            console.log('res : ' + res.status);
-            return res.json();
-        }).then(cart=>{
-            this.setState({
-                cartQauntity : cart.cartQauntity
-            })
-        })
+        getProducts.call(this)
+        getCart.call(this)
     }
 
     render(){
-        console.log('error show : ' + this.state.errorShow);
         const products = this.state.products;
         let noOfProducts =  products.length;
         let productListSize = 50 + (parseInt(Math.ceil(noOfProducts/4)))*400;

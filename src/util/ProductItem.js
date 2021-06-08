@@ -2,16 +2,6 @@ import React from 'react';
 import '.././css/productList.css';
 
 class ProductItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e)
-    {
-        console.log('event ',e.target.value);
-        this.props.onCheckBoxClick(e.target.value);
-    }
 
     render()
     {
@@ -29,7 +19,7 @@ class ProductItem extends React.Component {
         
         const productItem =
             <div className="productItem" >
-                <a onClick={this.handleChange} target="_blank" href={`/productDetail/${product._id}`} rel="noreferrer">
+                <a target="_blank" href={`/productDetail/${product._id}`} rel="noreferrer">
                 <div className="productImage" >
                     <div className="imgClass" >
                         <img src={product.imageUrl} alt="BOOK" />

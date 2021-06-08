@@ -35,30 +35,15 @@ function getRatings(products)
     return ratingList;
 }
 
-class CheckBox extends React.Component {
+function CheckBox (props) {
 
-    constructor(props) {
-        super(props);
-        this.handleOnCheck = this.handleOnCheck.bind(this);
-    }
-
-    
-    handleOnCheck(e)
-    {
-        //console.log('value on check ',obj.value);
-        console.log('name on check ',e.target);
-       this.props.handleCheckboxClick(e.target.name,e.target.value);
-    }
-
-
-    render(){
-        const items = this.props.items;
+        const items = props.items;
         let itemList = "";
-        if(this.props.name === 'rating'){
+        if(props.name === 'rating'){
             itemList = items.map((value,index)=>
                 <table key={index} className="filterItemClass" >
                     <tr>
-                    <td className="itemCheckbox" ><input type="checkbox"  name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
+                    <td className="itemCheckbox" ><input type="checkbox"  name={props.name} value={value} onClick={props.handleCheckboxClick} /></td>
                     <td className="itemLabel"  ><label className="labelClass" ><span className="starClass" >{value} <i class="fa fa-star"></i></span></label></td>
                     </tr>
                 </table>
@@ -67,32 +52,18 @@ class CheckBox extends React.Component {
             itemList = items.map((value,index)=>
                 <table key={index} className="filterItemClass" >
                     <tr>
-                    <td className="itemCheckbox" ><input type="checkbox" name={this.props.name} value={value} onClick={this.handleOnCheck} /></td>
+                    <td className="itemCheckbox" ><input type="checkbox" name={props.name} value={value} onClick={props.handleCheckboxClick}  /></td>
                     <td className="itemLabel"  ><label className="labelClass" >{value}</label></td>
                     </tr>
                 </table>
             )
         }
         return itemList;
-    }
 }
 
-class Sidebar extends React.Component {
+function Sidebar(props) {
 
-    constructor(props) {
-        super(props);
-        this.handleCheckboxClick = this.handleCheckboxClick.bind(this);
-    }
-
-    handleCheckboxClick(name,value)
-    {
-        console.log('value ',value);
-        console.log('name ',name);
-        this.props.onCheckBoxClick(name,value);
-    }
-
-    render(){
-    const products = this.props.products;
+    const products = props.products;
     let authorList = getAuthors(products);
     let genreList = getGenres(products);
     let ratingList = getRatings(products);
@@ -110,7 +81,7 @@ class Sidebar extends React.Component {
                 <div className='filterTitle'>Genre</div>
                 <div className='filterContent'>
                 <div className="filterColumns" >
-                    <CheckBox items={genreList} name={genreName} handleCheckboxClick={this.handleCheckboxClick} />
+                    <CheckBox items={genreList} name={genreName} handleCheckboxClick={props.onCheckBoxClick} />
                 </div>
                 </div>
             </div>
@@ -118,7 +89,7 @@ class Sidebar extends React.Component {
                 <div className='filterTitle'>Author</div>
                 <div className='filterContent'>
                 <div className="filterColumns" >
-                    <CheckBox items={authorList} name={authorName} handleCheckboxClick={this.handleCheckboxClick} />
+                    <CheckBox items={authorList} name={authorName} handleCheckboxClick={props.onCheckBoxClick} />
                 </div>
                 </div>
             </div>
@@ -127,7 +98,7 @@ class Sidebar extends React.Component {
                 <div className='filterContent'>
                 <div className="filterColumns" >
                 <div className="filterColumns" >
-                    <CheckBox items={ratingList} name={ratingName} handleCheckboxClick={this.handleCheckboxClick} />
+                    <CheckBox items={ratingList} name={ratingName} handleCheckboxClick={props.onCheckBoxClick} />
                 </div>
                 </div>
                 </div>
@@ -136,7 +107,6 @@ class Sidebar extends React.Component {
     </div>
 
     return sideBar;
-    }
 }
 
 export default Sidebar;

@@ -2,7 +2,8 @@ import React from 'react';
 import '../css/productCart.css';
 import OrderItem from '../util/OrderItem';
 import Navbar from '../util/Navbar';
-import {initiatePayment} from '../util/Payment';
+import {getOrder,makePayment} from '../action/productOrderAction.js';
+
 
 class ProductCart extends React.Component {
 
@@ -18,62 +19,11 @@ class ProductCart extends React.Component {
     }
 
     componentDidMount(){
-        const fetchOrderUrl = '/api/orders/';
-        fetch(fetchOrderUrl).then((res)=>{
-            console.log('res : ' + res.status);
-            return res.json();
-        }).then((orderItem)=>{
-            console.log('cartItem : '+ orderItem);
-            if(orderItem.status === "SUCCEEDED"){
-                this.setState({
-                    items : orderItem.items,
-                    cartQuantity : orderItem.cartQuantity,
-                    actualPrice : orderItem.actualPrice,
-                    discount : orderItem.discount,
-                    totalPrice : orderItem.totalPrice
-                });
-            }else if (orderItem.errorCode === 'ER008'){
-                let msg = "";
-                let location = "";
-                msg = orderItem.message;
-                const redirect = '/error/' + msg + '|' + location;
-                window.location = redirect;
-            }
-        })
+        getOrder.call(this)
     }
 
     onPayClick(e){
-        e.preventDefault();
-        const paymentHandlers = {
-            onSuccess: (options)=>{
-                console.log('options : ',options);
-                fetch(`/api/orders/${options.id}`,{
-                    method : 'PUT',
-                    body : JSON.stringify(options),
-                    headers: {
-                            'Content-type': 'application/json; charset=UTF-8'
-                         }
-                }).then((res) => {
-                    console.log('res status : ',res.status);
-                    let msg = "";
-                    let location = "";
-                    if(res.status === 204){
-                        msg = 'order completed successfully. Thank you for shopping';
-                    }else{
-                        msg = 'could not complete your order. please try again';
-                    }
-                    const redirect = '/error/' + msg + '|' + location;
-                    window.location = redirect;
-                })
-            },
-            onDismiss: () => {
-
-            }
-        }
-        const onOrderCreateFailure = (err)=>{
-
-        }
-        initiatePayment(paymentHandlers,onOrderCreateFailure);
+        makePayment.call(this,e)
     }
 
     render()

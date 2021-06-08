@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/productDetail.css';
 import Navbar from '../util/Navbar';
+import {createAddProductRequest,getProductById,isItemPresent,updateProduct,handleOnClickProduct} from '../action/productDetailAction.js';
 
 class ProductDetail extends React.Component {
 
@@ -16,111 +17,37 @@ class ProductDetail extends React.Component {
     }
 
     isItemPresentInCart(){
-        const fetchUrl = '/api/cart/itemPresent/' + this.state.id;
-        fetch(fetchUrl).then(res=>{
-            return res.json();
-        }).then((product)=>{
-            console.log('product present ? : '+ product.isProductPresent);
-            let value = "";
-            if(product.isProductPresent === true){
-                value = "GO TO CART";
-            }else{
-                value = "ADD TO CART";
-            }
-            this.setState({
-                isItemPresent : product.isProductPresent,
-                buttonValue : value
-            })
-        })
+        isItemPresent.call(this)
     }
 
     updateProductBtn()
     {
-        console.log('is product present : ',this.state.isItemPresent)
-        if(this.state.isItemPresent === true){
-            this.setState({
-                buttonValue : "GO TO CART"
-            })
-        }else{
-            this.setState({
-                buttonValue : "ADD TO CART"
-            })
-        }
+        updateProduct.call(this)
     }
 
     componentDidMount(){
-        console.log('props id : ',this.props.match.params.id);
-        const fetchUrl = '/api/products/' + this.state.id;
-        fetch(fetchUrl).then(res=>{
-            if(res.status===200){
-                return res.json();
-            }
-        }).then((product)=>{
-            this.setState({
-                product : product
-            })
-           this.isItemPresentInCart();
-           this.updateProductBtn();
-        })
+        getProductById.call(this)
     }
 
     componentDidUpdate(prevProps, prevState){
-        console.log('prevState.isItemPresent : ',prevState.isItemPresent);
         if(prevState.isItemPresent !== this.state.isItemPresent){
             this.updateProductBtn();
         }
     }
 
-
     createPostRequest(product)
     {
-        let postMap = {};
-       console.log('product id : ',product._id);
-        postMap['productId'] = product._id;
-        postMap['title'] = product.title;
-        postMap['imageUrl'] = product.imageUrl;
-        postMap['discount'] = product.discount;
-        postMap['quantity'] = 1;
-        postMap['actualPrice'] = product.price.actualPrice;
-        postMap['discountedPrice'] = product.price.discountedPrice;
-        console.log('postmap : ',postMap);
-        return postMap;
+       return createAddProductRequest.call(this,product);
     }
 
-    handleOnlick(product)
+    handleOnClick(product)
    {
-       if(this.state.isItemPresent===true){
-           window.location = '/productCart/'
-       }else{
-       const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.createPostRequest(product))
-            
-        };
-        fetch('/api/cart/', requestOptions).then(res=>{
-            return res.json();
-        }).then(data=>{
-            if(data.status === 'SUCCEEDED'){
-                this.setState({
-                    isItemPresent : true
-                })
-            }
-            console.log('data.productStatus : ',data.productStatus)
-            if(data.productStatus === 'ADDED'){
-                this.setState({
-                    isItemAdded : true
-                })
-            }
-        })
-    }
+       handleOnClickProduct.call(this,product)
    }
 
     render(){
         const product = this.state.product;
-         const price = {...product.price};
-         console.log("price ",price['actualPrice'])
-       
+        const price = {...product.price};
         let priceItem ="";
         if(product.discount)
         {
@@ -143,7 +70,7 @@ class ProductDetail extends React.Component {
                                 </div>
                             </div>
                             <div className="product-buy" >
-                                <div className="product-button" ><input type="button" value={this.state.buttonValue} onClick={this.handleOnlick.bind(this,this.state.product)} class="btn btn-primary btn-block" /></div>
+                                <div className="product-button" ><input type="button" value={this.state.buttonValue} onClick={this.handleOnClick.bind(this,this.state.product)} class="btn btn-primary btn-block" /></div>
                             </div>
                         </div>
                         <div className="detail-container" >
