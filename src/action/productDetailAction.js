@@ -6,6 +6,7 @@ export function createAddProductRequest(product)
     postMap['title'] = product.title;
     postMap['imageUrl'] = product.imageUrl;
     postMap['discount'] = product.discount;
+    postMap['author'] = product.author;
     postMap['quantity'] = 1;
     postMap['actualPrice'] = product.price.actualPrice;
     postMap['discountedPrice'] = product.price.discountedPrice;
@@ -70,7 +71,7 @@ export function handleOnClickProduct(product)
     const requestOptions = {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify(this.createPostRequest(product))
+         body: JSON.stringify(createAddProductRequest(product))
          
      };
      fetch('/api/cart/', requestOptions).then(res=>{

@@ -6,6 +6,7 @@ import ProductList from './component/ProductList';
 import ProductDetail from './component/ProductDetail';
 import ProductCart from './component/ProductCart';
 import ProductOrder from './component/ProductOrder';
+import ProductFilter from './component/ProductFilter';
 import LoginPage from './util/LoginPage';
 import ErrorPageOrder from './util/ErrorPageOrder';
 //import Home from './component/Home';
@@ -20,6 +21,7 @@ function ReaderClubApp() {
           <Route exact path="/productDetail/:id" component={ProductDetail} />
           <Route exact path="/productCart/" component={ProductCart} />
           <Route exact path="/productOrder/" component={ProductOrder} />
+          <Route exact path="/productFilter/:title" component={ProductFilter} /> 
           <Route exact path="/login/" component={LoginPage} />
           <Route exact path="/error/:errorParam" component={ErrorPageOrder} />
         </Switch>

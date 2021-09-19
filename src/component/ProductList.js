@@ -1,12 +1,11 @@
 import React from 'react';
 import '../css/productList.css';
-import '../util/Sidebar-old';
 import '../util/Navbar';
 import Sidebar from '../util/Sidebar';
 import ProductItem from '../util/ProductItem';
 import Navbar from '../util/Navbar';
 import SlideShow from '../util/SlideShow';
-import {getProducts,getCart} from '../action/productListAction.js';
+import {getProducts,getCart,getProductsByFilter,clearAllfilters} from '../action/productListAction.js';
 
 class ProductList extends React.Component {
     
@@ -14,15 +13,40 @@ class ProductList extends React.Component {
         super(props);
         this.state = {
             products : [],
+            sideBarList : [],
             page : 1,
             size : 16,
-            cartQauntity : 0
+            cartQauntity : 0,
+            filterMap : {},
+            searchTitle : ""
         }
     }
 
+    handleClearFilterClick()
+    {
+        clearAllfilters.call(this)
+    }
+
     onCheckBoxClick(e){
-        console.log('name clicked !! ',e.target.name);
-        console.log('value clicked !! ',e.target.value);
+        getProductsByFilter.call(this,e.target.name,e.target.value);
+    }
+
+    onSearchClick(e){
+        
+        let searchText = document.getElementById("searchInput").value;
+        console.log("text val : ", searchText);
+        if(this.state.searchTitle!=="")
+        {
+            window.location = '/productFilter/' + this.state.searchTitle;
+        }
+    }
+
+    onSearchText(e){
+        console.log("search text val : ", e.target.value);
+       this.setState({
+           searchTitle : e.target.value
+       })
+       console.log("state text : ", this.state.searchTitle);
     }
 
     componentDidMount(){
@@ -47,14 +71,14 @@ class ProductList extends React.Component {
             height : productGridHeight
         } 
         const productList = products.map((product,index)=>
-            <ProductItem key={index} onCheckBoxClick={this.onCheckBoxClick} product={product} />
+            <ProductItem key={index} onCheckBoxClick={this.onCheckBoxClick.bind(this)} product={product} />
         );
 
         return (
         <div>
-        <Navbar quantity={this.state.cartQauntity} />
+        <Navbar onSearchText={this.onSearchText.bind(this)}  onSearchClick={this.onSearchClick.bind(this)} quantity={this.state.cartQauntity} />
         <div className="container" >
-            <Sidebar products={products} onCheckBoxClick={this.onCheckBoxClick}  />
+            <Sidebar products={this.state.sideBarList} onCheckBoxClick={this.onCheckBoxClick.bind(this)} handleClearFilterClick={this.handleClearFilterClick.bind(this)}  />
             <div className="product-container" style={productContainerStyle} >
                 <div className="slide-show" >
                     <SlideShow />

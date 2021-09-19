@@ -3,7 +3,6 @@ import '.././css/errorPage.css';
 
 function ErrorPage(props) {
         const errorObject = props.errorObject;
-        console.log('error object : ',errorObject);
         return (
                 <div className="error-section" onClick={e => e.stopPropagation()}>
                     <div className="error-logo" >

@@ -31,7 +31,21 @@
   position: relative;
   padding-top: 10px;
   padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
   background-color: #2F4F4F;
+}
+
+#filter-btn {
+  font-size: 15px;
+  font-weight: 600;
+  height: 28px;
+  width: 120px;
+  color: #2F4F4F;
+  background-color:#ffffff;
+  border: 0px;
+  border-radius: 10px;
 }
 
 #book-filter-title{

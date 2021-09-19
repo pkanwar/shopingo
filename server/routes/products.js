@@ -12,5 +12,7 @@ router.get('/:id',productController.getProduct);
 
 router.get('/',productController.getProducts);
 
+router.post('/filter',productController.getProductsByFilter);
+
 
 module.exports = router;

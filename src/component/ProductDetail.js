@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/productDetail.css';
 import Navbar from '../util/Navbar';
-import {createAddProductRequest,getProductById,isItemPresent,updateProduct,handleOnClickProduct} from '../action/productDetailAction.js';
+import {getProductById,isItemPresent,updateProduct,handleOnClickProduct} from '../action/productDetailAction.js';
 
 class ProductDetail extends React.Component {
 
@@ -35,10 +35,10 @@ class ProductDetail extends React.Component {
         }
     }
 
-    createPostRequest(product)
-    {
-       return createAddProductRequest.call(this,product);
-    }
+    // createPostRequest(product)
+    // {
+    //    return createAddProductRequest.call(this,product);
+    // }
 
     handleOnClick(product)
    {

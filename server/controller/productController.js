@@ -101,3 +101,55 @@ exports.getProducts = (req,res)=>{
     });
 
 }
+
+exports.getProductsByFilter = (req,res)=>{
+    console.log('session : ', req.session);
+    console.log('req.sessionID : ', req.sessionID);
+    let page = parseInt(req.body.page);
+    let size = parseInt(req.body.size);
+    let skip = 0;
+    let limit = 16;
+    let category = req.body.genre;
+    let author = req.body.author;
+    let rating = req.body.rating;
+    console.log('body : ',req.body);
+    let parameters = {};
+    if(category && category.length !== 0){
+        parameters['category'] =  { $in : category };
+    }
+    if(author && author.length !== 0){
+        parameters['author'] =  { $in : author };
+    }
+    if(rating && rating.length !== 0){
+
+        const ratings = [];
+        
+        rating.forEach(rating => {
+            //round off rating in case of decimal
+            let regexp = new RegExp("^"+ parseInt(rating));
+            ratings.push(regexp);
+        });
+
+        parameters['rating'] = { $in : ratings };
+        console.log('parameter rating : ',parameters['rating']);
+    }
+    if(page && size){
+        skip = (page-1) * size;
+        limit = size
+    }
+
+    console.log("parameters : ",parameters);
+
+    Product.find(parameters).skip(skip).limit(limit).then(product=>{
+       // console.log('product : ',product);
+       let result = {};
+       result['products'] = product;
+       result['status'] = "SUCCEEDED";
+        res.status(200).send(result);
+        return;
+    }).catch(() => {
+        res.status(500).send({ error: "Internal Server Error" });
+    });
+
+}
+

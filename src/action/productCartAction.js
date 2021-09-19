@@ -100,3 +100,23 @@ export function deleteItemFromOrder(productId,isDecrement)
         }
     })
 }
+
+export function getProductsBySearch(title){
+    let pageNo = 1;
+    let numberOfItems = 16;
+    const fetchProductsUrl = `/api/products?page=${pageNo}&size=${numberOfItems}&title=${title}&category=&subCategory=`;
+    fetch(fetchProductsUrl).then(res=>{
+        console.log('products response : '+ res);
+        if(res.status===200){
+            return res.json();
+        }else{
+            // throw error 500
+        }
+    }).then((productList)=>{
+        this.setState({
+            items : productList,
+        });
+    }).catch(err=>{
+        console.log('error : ',err);
+    })
+}

@@ -26,7 +26,7 @@
   height: 40px;
 }
 
-#navItem2 form{
+#navItem2 .searchForm{
   width: 480px;
   display: grid;
   grid-template-columns: 4fr 1fr;
@@ -42,7 +42,7 @@
   font-weight: 450;
   font-size: 15px;
   margin-left: 10px;
-  color: #2F4F4F;
+  color: #206969;
   width: 420px;
   height: 40px;
   padding: 5px;

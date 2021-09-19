@@ -2,7 +2,6 @@ import ErrorPage from '../util/ErrorPage';
 
 export function getErrorPage(isError)
 {
-    console.log('isError : ', isError);
     let errorSection = null;
     let errorObject = this.state.errorObject;
     

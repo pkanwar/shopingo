@@ -12,7 +12,8 @@ export function getProducts(){
         }
     }).then((productList)=>{
         this.setState({
-            products : productList
+            products : productList,
+            sideBarList : productList
         });
     }).catch(err=>{
         console.log('error : ',err);
@@ -30,4 +31,65 @@ export function getCart()
                 cartQauntity : cart.cartQauntity
             })
     })
+}
+
+export function getProductsByFilter(key,value)
+{
+    let filterMap = this.state.filterMap;
+    let filter = []
+    if(filterMap[key]){
+        filter = filterMap[key];
+        if(filter.includes(value))
+        {
+            const index = filter.indexOf(value);
+            filter.splice(index,1);
+        }else{
+            filter.push(value);
+        }
+        
+    }else{
+        filter.push(value);
+        filterMap[key] = filter;
+    }
+    console.log('filter : ', filter);
+    console.log('filterMap : ', filterMap);
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(filterMap)
+    };
+    fetch('/api/products/filter', requestOptions).then(res=>{
+        return res.json();
+    }).then(result=>{
+        console.log('result : ', result);
+        if(result.status === 'SUCCEEDED'){
+            this.setState({
+                filterMap : filterMap,
+                products : result.products
+            })
+        }
+    })
+}
+
+export function clearAllfilters()
+{
+    this.setState({
+        filterMap : {},
+    })
+    getProducts.call(this)
+    let author = document.getElementsByName("author") ;
+    for(let i = 0;i < author.length; i++)
+    {
+        author[i].checked = false;
+    }
+    let genre = document.getElementsByName("genre");
+    for(let i = 0;i < genre.length; i++)
+    {
+        genre[i].checked = false;
+    }
+    let rating =  document.getElementsByName("rating");
+    for(let i = 0;i < rating.length; i++)
+    {
+        rating[i].checked = false;
+    }
 }

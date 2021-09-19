@@ -60,7 +60,7 @@ export function logoutUser()
     })
 }
 
-export function myCartClick(){
+export function  myCartClick(){
     if(this.state.cartQuantity === 0){
         let errorObject = this.getErrorObject('No items present in the cart. Please add books',window.location.pathname);
         this.setState({
