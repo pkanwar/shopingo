@@ -93,9 +93,16 @@ exports.getProducts = (req,res)=>{
     }
 
     Product.find(parameters).skip(skip).limit(limit).then(product=>{
-       // console.log('product : ',product);
-        res.status(200).send(product);
-        return;
+        let response = {};
+        Product.find().count().then((count)=>{
+            let totalPages = Math.ceil(count/limit);
+            response['products'] = product;
+            response['totalItems'] = count;
+            response['totalPages'] = totalPages;
+            res.status(200).send(response);
+            return;
+        })
+       
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });
     });
@@ -142,10 +149,20 @@ exports.getProductsByFilter = (req,res)=>{
 
     Product.find(parameters).skip(skip).limit(limit).then(product=>{
        // console.log('product : ',product);
-       let result = {};
-       result['products'] = product;
-       result['status'] = "SUCCEEDED";
-        res.status(200).send(result);
+    //    let result = {};
+    //    result['products'] = product;
+    //    result['status'] = "SUCCEEDED";
+    //     res.status(200).send(result);
+        let response = {};
+        Product.find(parameters).count().then((count)=>{
+            let totalPages = Math.ceil(count/limit);
+            response['products'] = product;
+            response['totalItems'] = count;
+            response['totalPages'] = totalPages;
+            response['status'] = "SUCCEEDED";
+            res.status(200).send(response);
+            return;
+        })
         return;
     }).catch(() => {
         res.status(500).send({ error: "Internal Server Error" });

@@ -61,7 +61,7 @@ class LoginPage extends React.Component {
         return (
                 <div className="loginpage-content" onClick={e => e.stopPropagation()} >
                     <div className="login-logo" >
-                        <div id='ReaderImg' ><img src='/images/home/reader.jpg' alt='cart' /></div>
+                        <div id='loginReaderImg' ><img src='/images/home/reader.jpg' alt='cart' /></div>
                     </div>
                     <div className="login-form" >
                         <div>
@@ -83,7 +83,7 @@ class LoginPage extends React.Component {
                         </div>
                     
                         <div className="register-form" >
-                            <div className="register-title" >New to Reader's Club ? <a href="http://www.google.com" >Create an account</a></div>
+                            <div className="register-title" >New to Reader's Club ? <a href="/register" >Create an account</a></div>
                         </div>
                     </div>
                 </div>

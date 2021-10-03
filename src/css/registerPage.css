@@ -1,0 +1,163 @@
+
+  .register-box {
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-items: center; 
+    align-items: center;
+    background-color: #B8B8B8;
+  }
+
+  .register-content {
+    margin-top: 80px;
+    width: 900px;
+    height: 800px;
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 3fr 5fr;
+    justify-items: center; 
+    align-items: center;
+    padding-bottom: 30px;
+  }
+
+.register-logo {
+  height: 500px;
+  width: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+  padding-left: 50px;
+}  
+
+.register-form {
+  height: 800px;
+  width: 500px;
+}
+
+
+.register-form-content {
+  height: 780px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-items: center; 
+  align-items: center;
+  padding-top: 50px;
+}
+
+
+.register-btn {
+  font-weight: 600;
+  width: 500px;
+}
+
+.or-block {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.register-title {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#loginId {
+  width: 400px;
+}
+
+#passwordId {
+  width: 400px;
+}
+
+#confirmPasswordId {
+  width: 400px;
+}
+
+#firstName {
+  width: 400px;
+}
+
+#lastName{
+  width: 400px;
+}
+
+#emailId {
+  width: 400px;
+}
+
+#mobileNumber {
+  width: 400px;
+}
+
+#address {
+  width: 400px;
+  height: 100px;
+}
+
+#ReaderImg img{
+  margin-top: 25px;
+  height: 450px;
+  width: 320px;
+} 
+
+#loginMsg {
+  position: relative;
+  margin-left: 50px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#passwordMsg {
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#emailMsg{
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#mobileNumberMsg{
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#addressMsg{
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#confirmPasswordMsg{
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#firstNameMsg{
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}
+
+#lastNameMsg{
+  position: relative;
+  margin-left: 40px;
+  color: #B22222;
+  font-weight: 600;
+}

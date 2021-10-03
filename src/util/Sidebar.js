@@ -66,7 +66,6 @@ function Sidebar(props) {
     let authorList = getAuthors(products);
     let genreList = getGenres(products);
     let ratingList = getRatings(products);
-    console.log('ratingList : ',ratingList);
     const authorName = "author";
     const genreName = "genre"
     const ratingName = "rating"

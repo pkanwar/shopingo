@@ -30,7 +30,6 @@ export function getCartItems()
 export function placeOrderRequestMap(item)
 {
     let postMap = {};
-    console.log('product id : ',item.productId);
      postMap['productId'] = item.productId;
      postMap['title'] = item.title;
      postMap['imageUrl'] = item.imageUrl;
@@ -38,7 +37,6 @@ export function placeOrderRequestMap(item)
      postMap['quantity'] = 1;
      postMap['actualPrice'] = item.actualPrice;
      postMap['discountedPrice'] = item.discountedPrice;
-     console.log('postmap : ',postMap);
      return postMap;
 }
 
@@ -113,6 +111,12 @@ export function getProductsBySearch(title){
             // throw error 500
         }
     }).then((productList)=>{
+        if(!productList.length){
+            let msg = "No search results found for '"+title+"'";
+            let location = "";
+            const redirect = '/error/' + msg + '|' + location;
+            window.location = redirect;
+        }
         this.setState({
             items : productList,
         });
