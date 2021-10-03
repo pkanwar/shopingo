@@ -16,6 +16,22 @@ class ProductDetail extends React.Component {
         }
     }
 
+    onSearchClick(e){
+        
+        let searchText = document.getElementById("searchInput").value;
+        console.log("text val : ", searchText);
+        if(this.state.searchTitle!=="")
+        {
+            window.location = '/productFilter/' + this.state.searchTitle;
+        }
+    }
+
+    onSearchText(e){
+       this.setState({
+           searchTitle : e.target.value
+       })
+    }
+
     isItemPresentInCart(){
         isItemPresent.call(this)
     }
@@ -34,11 +50,6 @@ class ProductDetail extends React.Component {
             this.updateProductBtn();
         }
     }
-
-    // createPostRequest(product)
-    // {
-    //    return createAddProductRequest.call(this,product);
-    // }
 
     handleOnClick(product)
    {
@@ -60,7 +71,7 @@ class ProductDetail extends React.Component {
         }
         return (
             <div>
-                <Navbar isItemAdded={this.state.isItemAdded}  />
+                <Navbar onSearchText={this.onSearchText.bind(this)}  onSearchClick={this.onSearchClick.bind(this)} isItemAdded={this.state.isItemAdded}  />
                 <div className="pd-container" >
                     <div className="item-detail-container" >
                         <div className="image-buy-container" >

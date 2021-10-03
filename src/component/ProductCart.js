@@ -19,6 +19,22 @@ class ProductCart extends React.Component {
         }
     }
 
+    onSearchClick(e){
+        
+        let searchText = document.getElementById("searchInput").value;
+        console.log("text val : ", searchText);
+        if(this.state.searchTitle!=="")
+        {
+            window.location = '/productFilter/' + this.state.searchTitle;
+        }
+    }
+
+    onSearchText(e){
+       this.setState({
+           searchTitle : e.target.value
+       })
+    }
+
     fetchCartItems()
     {
         getCartItems.call(this)
@@ -72,7 +88,7 @@ class ProductCart extends React.Component {
         const cartList = this.getCartBody(items);
         return (
             <div>
-                <Navbar cartQuantity={this.state.cartQuantity} />
+                <Navbar onSearchText={this.onSearchText.bind(this)}  onSearchClick={this.onSearchClick.bind(this)} cartQuantity={this.state.cartQuantity} />
                 <div className="productCart-container" >
                     <div className="productCart-detail-container" >
                         <div className="cart-list" >

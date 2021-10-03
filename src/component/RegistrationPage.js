@@ -30,6 +30,22 @@ class RegistratinPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    onSearchClick(e){
+        
+        let searchText = document.getElementById("searchInput").value;
+        console.log("text val : ", searchText);
+        if(this.state.searchTitle!=="")
+        {
+            window.location = '/productFilter/' + this.state.searchTitle;
+        }
+    }
+
+    onSearchText(e){
+       this.setState({
+           searchTitle : e.target.value
+       })
+    }
+
     onInput(event){
         console.log('event target : ',event.target.name)
         validateFieldsOnInput.call(this,event.target.name,event.target.value,false);
@@ -64,7 +80,7 @@ class RegistratinPage extends React.Component {
     render(){
         return (
                 <div>           
-                <Navbar />
+                <Navbar onSearchText={this.onSearchText.bind(this)}  onSearchClick={this.onSearchClick.bind(this)} quantity={this.state.cartQauntity} />
                 <div className="register-box">
                     <div className="register-content" onClick={e => e.stopPropagation()} >
 

@@ -103,6 +103,7 @@ export function getProductsBySearch(title){
     let pageNo = 1;
     let numberOfItems = 16;
     const fetchProductsUrl = `/api/products?page=${pageNo}&size=${numberOfItems}&title=${title}&category=&subCategory=`;
+    console.log('url : ',fetchProductsUrl)
     fetch(fetchProductsUrl).then(res=>{
         console.log('products response : '+ res);
         if(res.status===200){
@@ -111,14 +112,16 @@ export function getProductsBySearch(title){
             // throw error 500
         }
     }).then((productList)=>{
-        if(!productList.length){
+
+        console.log("list : ", productList)
+        if(!productList.products.length){
             let msg = "No search results found for '"+title+"'";
             let location = "";
             const redirect = '/error/' + msg + '|' + location;
             window.location = redirect;
         }
         this.setState({
-            items : productList,
+            items : productList.products,
         });
     }).catch(err=>{
         console.log('error : ',err);

@@ -6,7 +6,7 @@ import ProductItem from '../util/ProductItem';
 import Navbar from '../util/Navbar';
 //import SlideShow from '../util/SlideShow';
 import PageLink from '../util/PageLink';
-import {getProducts,getCart,getProductsByFilter,clearAllfilters,nextPageAction,activePageStyle,passivePageStyle} from '../action/productListAction.js';
+import {getProducts,getCart,getProductsByFilter,clearAllfilters,nextPageAction} from '../action/productListAction.js';
 
 class ProductList extends React.Component {
     
@@ -34,15 +34,7 @@ class ProductList extends React.Component {
         e.preventDefault();
         clearAllfilters.call(this)
     }
-    // note : use on click event on pagination anchor tag
-    // e.preventDefault() --> use this prevent page reload --> reduces loading time
-    // use filterMap as a flag to call different methods
-
-    // totalPagesWithFilter,currentPageWithFilter,totalPagesWithoutFilter,currentPageWithoutFilter
-    // currentPage,totalPages
-    // on basis of filterMap upadate above parameters
-
-
+  
     handleAnchorClick(e)
     {
         // console.log('filter options : ',IsFilterOptionsPresent(this.state.filterMap))
@@ -66,11 +58,9 @@ class ProductList extends React.Component {
     }
 
     onSearchText(e){
-        console.log("search text val : ", e.target.value);
        this.setState({
            searchTitle : e.target.value
        })
-       console.log("state text : ", this.state.searchTitle);
     }
 
     componentDidMount(){
