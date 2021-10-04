@@ -15,12 +15,7 @@ export function nextPageAction(value)
 {
     let currentPage = this.state.currentPage;
     let pageNumber = 0;
-    console.log('state current page : ',this.state.currentPage);
-    console.log('state total page : ',this.state.totalPages);
-    console.log('state current page with filter : ',this.state.currentPageWithFilter);
-    console.log('state total page with filter : ',this.state.totalPagesWithFilter);
-    console.log('state current page without filter : ',this.state.currentPageWithoutFilter);
-    console.log('state total page wihtout filter : ',this.state.totalPagesWithoutFilter);
+   
     if(isPageNumberClick(value))
     {
         pageNumber = value;
@@ -32,20 +27,17 @@ export function nextPageAction(value)
             pageNumber = getPageNumber(currentPage+1,this.state.totalPages);
         }
     }
-    console.log('pageNumber : ',pageNumber);
     if(IsFilterOptionsPresent(this.state.filterMap))
     {
         goToOtherPageByFilter.call(this,pageNumber);
     }else{
         getProducts.call(this,pageNumber);
     }
-    console.log('state updated current page : ',this.state.currentPage);
-    console.log('state updated total page : ',this.state.totalPages);
+   
 }
 
 export function getProducts(pageNumber,pages){
-    console.log('1 total pages : ',this.state.totalPages)
-    console.log('2 total pages : ',pages);
+    
     let totalPages = this.state.totalPages;;
     if(pages)
     {

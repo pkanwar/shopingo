@@ -2,19 +2,24 @@ import React from 'react';
 import '../css/productCart.css';
 import Navbar from '../util/Navbar';
 import {filterItem} from '../util/FilterItem';
-import {getCartItems,placeOrderRequestMap,placeOrder,addItemForOrder,deleteItemFromOrder,getProductsBySearch} from '../action/productCartAction.js';
+import PageLink from '../util/PageLink';
+import {getCartItems,placeOrderRequestMap,placeOrder,addItemForOrder,deleteItemFromOrder,getProductsBySearch,nextPageAction} from '../action/productCartAction.js';
 
 class ProductFilter extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
+            title : this.props.match.params.title,
             products : [],
             items : [],
             cartQuantity : null, 
             actualPrice : null,
             discount : null,
             totalPrice : null,
+            totalPages : 0,
+            currentPage : 1,
+            totalPages : 0
         }
     }
 
@@ -27,6 +32,12 @@ class ProductFilter extends React.Component {
             window.location = '/productFilter/' + this.state.searchTitle;
         }
     }
+
+    handleAnchorClick(e)
+    {
+        nextPageAction.call(this,e.target.value)
+    }
+     
 
     onSearchText(e){
        this.setState({
@@ -100,6 +111,13 @@ class ProductFilter extends React.Component {
                             <div className="cart-list-title" ><span className="cart-title">Your search Results</span></div>
                             <div className="cart-list-content" >
                                 {cartList}
+                            </div>
+                            <div className="filter-pagination-block" >
+                                <div className="filter-pagination" >
+                                    <input className="anchor" type="button" value="<<" onClick={this.handleAnchorClick.bind(this)}  />
+                                    <PageLink handleAnchorClick={this.handleAnchorClick.bind(this)} currentPage={this.state.currentPage}  totalPages={this.state.totalPages} />
+                                    <input className="anchor" type="button" value=">>" onClick={this.handleAnchorClick.bind(this)} />
+                                </div>
                             </div>
                         </div>
                     </div>

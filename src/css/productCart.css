@@ -347,7 +347,7 @@
   height: 600px;
   background-color: #B8B8B8;
   display: grid;
-  grid-template-columns: 5fr 3fr;
+  grid-template-rows: 5fr 3fr;
   justify-items: center; 
   align-items: center;
   margin-top: 80px;
@@ -358,4 +358,25 @@
   width: 800px;
   height: 650px;
   background-color :#ffffff;
+  
+}
+
+.filter-pagination-block {
+
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center; 
+  align-items: center;
+  height: 100;
+}
+
+.filter-pagination {
+  margin-top: 3px;
+  display: inline-block;
+}
+
+.filter-pagination .anchor {
+  padding: 10px 15px;
+  border: none;
+  outline: none;
 }

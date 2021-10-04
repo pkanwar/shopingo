@@ -117,10 +117,10 @@ class Navbar extends React.Component {
                         <div id='title' >Reader's Club</div>
                     </div>
                     <div className='navItem' id='navItem2' >
-                        <div class="searchForm">
+                        <form class="searchForm" onSubmit={this.props.onSearchClick} >
                             <div id='formItem1' ><input placeholder="search for book title..."  onChange={this.props.onSearchText}  id="searchInput" /></div>
                             <div id='formItem2' ><button id='searchBtn' class="btn btn-success btn-lg" onClick={this.props.onSearchClick} ><span class="glyphicon glyphicon-search"></span></button></div>
-                        </div>
+                        </form>
                     </div>
                     <div className='navItem' id='navItem3' >
                         <div className='loginSection' >

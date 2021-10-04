@@ -1,3 +1,4 @@
+const pageSize = 10;
 
 export function getCartItems()
 {
@@ -99,9 +100,19 @@ export function deleteItemFromOrder(productId,isDecrement)
     })
 }
 
-export function getProductsBySearch(title){
+export function getProductsBySearch(title,pageNumber,pages){
+    console.log('title : ',title);
+    console.log('pageNumber : ',pageNumber);
     let pageNo = 1;
-    let numberOfItems = 16;
+    let numberOfItems = pageSize;
+    let totalPages = this.state.totalPages;;
+    if(pages)
+    {
+        totalPages = pages;
+    }
+    if(pageNumber){
+        pageNo = getPageNumber(pageNumber,totalPages);
+    }
     const fetchProductsUrl = `/api/products?page=${pageNo}&size=${numberOfItems}&title=${title}&category=&subCategory=`;
     console.log('url : ',fetchProductsUrl)
     fetch(fetchProductsUrl).then(res=>{
@@ -122,8 +133,59 @@ export function getProductsBySearch(title){
         }
         this.setState({
             items : productList.products,
+            totalPages: productList.totalPages,
+            currentPage : pageNo,
         });
     }).catch(err=>{
         console.log('error : ',err);
     })
+}
+
+export function nextPageAction(value)
+{
+    let currentPage = this.state.currentPage;
+    let pageNumber = 0;
+   
+    if(isPageNumberClick(value))
+    {
+        pageNumber = value;
+    }else{
+         pageNumber = getPageNumber(currentPage-1,this.state.totalPages);
+        if(isIncrementOperation(value))
+        {
+            pageNumber = getPageNumber(currentPage+1,this.state.totalPages);
+        }
+    }
+   
+    getProductsBySearch.call(this,this.state.title,pageNumber);
+   
+}
+
+function getPageNumber(pageNumber,totalPages)
+{
+    if(pageNumber > totalPages)
+    {
+        return totalPages;
+    }else if(pageNumber < 1){
+        return 1;
+    }
+    return pageNumber;
+}
+
+function isPageNumberClick(value)
+{
+    if(value==="<<" || value===">>")
+    {
+        return false;
+    }
+    return true;
+}
+
+function isIncrementOperation(operationType)
+{
+    if(operationType === "<<"){
+        return false;
+    }
+
+    return true;
 }

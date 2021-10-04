@@ -37,9 +37,6 @@ class ProductList extends React.Component {
   
     handleAnchorClick(e)
     {
-        // console.log('filter options : ',IsFilterOptionsPresent(this.state.filterMap))
-        console.log('page number ', e.target.value)
-        console.log('page operationType ', e.target.operationtype)
         nextPageAction.call(this,e.target.value)
     }
      
@@ -48,8 +45,9 @@ class ProductList extends React.Component {
     }
 
     onSearchClick(e){
-        
+        e.preventDefault()
         let searchText = document.getElementById("searchInput").value;
+        //alert(searchText)
         console.log("text val : ", searchText);
         if(this.state.searchTitle!=="")
         {
