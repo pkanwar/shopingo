@@ -61,10 +61,14 @@ export function getProducts(pageNumber,pages){
         console.log('product list : ',productList)
         this.setState({
             products : productList.products,
-            sideBarList : productList.products,
             totalPagesWithoutFilter : productList.totalPages,
             currentPageWithoutFilter : pageNo,
         });
+        if(isEmptyList(this.state.sideBarList)){
+            this.setState({
+                sideBarList : productList.products,
+            });
+        }
         updatePageDetails.call(this)
     }).catch(err=>{
         console.log('error : ',err);
@@ -187,6 +191,14 @@ export function clearAllfilters()
     {
         rating[i].checked = false;
     }
+}
+
+function isEmptyList(list)
+{
+    if(list.length===0){
+        return true;
+    }
+    return false;
 }
 
 function updatePageDetails()

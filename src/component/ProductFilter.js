@@ -18,8 +18,7 @@ class ProductFilter extends React.Component {
             discount : null,
             totalPrice : null,
             totalPages : 0,
-            currentPage : 1,
-            totalPages : 0
+            currentPage : 1
         }
     }
 
