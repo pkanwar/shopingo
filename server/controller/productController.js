@@ -94,7 +94,7 @@ exports.getProducts = (req,res)=>{
 
     Product.find(parameters).skip(skip).limit(limit).then(product=>{
         let response = {};
-        Product.find().count().then((count)=>{
+        Product.find().countDocuments().then((count)=>{
             let totalPages = Math.ceil(count/limit);
             response['products'] = product;
             response['totalItems'] = count;
@@ -154,7 +154,7 @@ exports.getProductsByFilter = (req,res)=>{
     //    result['status'] = "SUCCEEDED";
     //     res.status(200).send(result);
         let response = {};
-        Product.find(parameters).count().then((count)=>{
+        Product.find(parameters).countDocuments().then((count)=>{
             let totalPages = Math.ceil(count/limit);
             response['products'] = product;
             response['totalItems'] = count;
@@ -170,3 +170,35 @@ exports.getProductsByFilter = (req,res)=>{
 
 }
 
+exports.getFilterMap = (req,res)=>{
+    let response = {};
+    Product.find({},{category:1,author:1,rating:1}).then(products=>{
+        let authors = [];
+        let categories = [];
+        let ratings = [];
+        let filterMap = new Map();
+        products.forEach(item=>{
+            if(!filterMap.has(item.author)){
+                authors.push(item.author);
+                filterMap.set(item.author,true);
+            }
+
+            if(!filterMap.has(item.category)){
+                categories.push(item.category);
+                filterMap.set(item.category,true);
+            }
+
+            if(!filterMap.has(item.rating)){
+                ratings.push(item.rating);
+                filterMap.set(item.rating,true);
+            }
+        })
+        response['status'] = "SUCCEEDED";
+        response['authors'] = authors;
+        response['ratings'] = ratings;
+        response['categories'] = categories;
+        res.status(200).send(response);
+    }).catch(() => {
+        res.status(500).send({ error: "Internal Server Error" });
+    });
+}

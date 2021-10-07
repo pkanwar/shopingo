@@ -64,12 +64,29 @@ export function getProducts(pageNumber,pages){
             totalPagesWithoutFilter : productList.totalPages,
             currentPageWithoutFilter : pageNo,
         });
-        if(isEmptyList(this.state.sideBarList)){
-            this.setState({
-                sideBarList : productList.products,
-            });
-        }
+        
         updatePageDetails.call(this)
+    }).catch(err=>{
+        console.log('error : ',err);
+    })
+}
+
+export function setFilterMap(){
+    const fetchfilterMapUrl = "/api/products/getFilterMap";
+    console.log('fetch url : ',fetchfilterMapUrl)
+    fetch(fetchfilterMapUrl).then((res)=>{
+        console.log('filter map res : '+ res);
+        if(res.status===200){
+            return res.json();
+        }else{
+            // throw error 500
+        }
+    }).then((filterList)=>{
+        console.log('filterList : ',filterList)
+        this.setState({
+            sideBarList : filterList,
+        });
+        
     }).catch(err=>{
         console.log('error : ',err);
     })

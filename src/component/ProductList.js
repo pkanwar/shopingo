@@ -6,7 +6,7 @@ import ProductItem from '../util/ProductItem';
 import Navbar from '../util/Navbar';
 //import SlideShow from '../util/SlideShow';
 import PageLink from '../util/PageLink';
-import {getProducts,getCart,getProductsByFilter,clearAllfilters,nextPageAction} from '../action/productListAction.js';
+import {getProducts,getCart,getProductsByFilter,clearAllfilters,nextPageAction,setFilterMap} from '../action/productListAction.js';
 
 class ProductList extends React.Component {
     
@@ -14,7 +14,7 @@ class ProductList extends React.Component {
         super(props);
         this.state = {
             products : [],
-            sideBarList : [],
+            sideBarList : new Map(),
             page : 1,
             size : 16,
             totalPagesWithFilter : 0,
@@ -28,7 +28,7 @@ class ProductList extends React.Component {
             searchTitle : ""
         }
     }
-
+    // filter map by a seperate api
     handleClearFilterClick(e)
     {
         e.preventDefault();
@@ -63,8 +63,11 @@ class ProductList extends React.Component {
 
     componentDidMount(){
         let pageNumber = this.props.match.params.pageNumber;
+        console.log('mount')
+        setFilterMap.call(this)
         getProducts.call(this,pageNumber)
         getCart.call(this)
+        
     }
 
     render(){

@@ -10,15 +10,11 @@ function PageLink(props) {
     let link = "";
     for(let i=1;i<=pages;i++)
     {
-        console.log('i : type ',typeof i)
-        console.log('currentPageNumber : ',typeof currentPageNumber)
-        console.log(i === currentPageNumber)
+       
         if(parseInt(i) === parseInt(currentPageNumber))
         {
-            console.log('i : ',i)
             link =  <input type="button" className="anchor" style={activePageStyle} key={i} value={i} onClick={props.handleAnchorClick} />;
         }else{
-            console.log('i p : ',i)
             link =  <input type="button" className="anchor" style={passivePageStyle} key={i} value={i} onClick={props.handleAnchorClick} />;
         }
         pageLinks.push(

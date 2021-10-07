@@ -1,37 +1,52 @@
 import React from 'react';
 import '.././css/sidebar.css';
 
+function isEmpty(map)
+{
+    if(map.size===0){
+        return true;
+    }
+    return false;
+}
+
 function getAuthors(products)
 {
     let authorList = [];
-    products.forEach((product,index)=>{
-        if(!authorList.includes(product.author)){
-            authorList.push(product.author);
-        }
-    })
+    console.log('products : ',products.size);
+    if(!isEmpty(products)){
+        products.authors.forEach((author)=>{
+            if(!authorList.includes(author)){
+                authorList.push(author);
+            }
+        })
+    }
     return authorList;
 }
 
 function getGenres(products)
 {
     let genreList = [];
-    products.forEach((product,index)=>{
-        if(!genreList.includes(product.category)){
-            genreList.push(product.category);
-        }
-    })
+    if(!isEmpty(products)){
+        products.categories.forEach((category)=>{
+            if(!genreList.includes(category)){
+                genreList.push(category);
+            }
+        })
+    }
     return genreList;
 }
 
 function getRatings(products)
 {
     let ratingList = [];
-    products.forEach((product,index)=>{
-        let rating = Math.floor(product.rating);
-        if(!ratingList.includes(rating)){
-            ratingList.push(rating);
-        }
-    })
+    if(!isEmpty(products)){
+        products.ratings.forEach((rating)=>{
+            let rate = Math.floor(rating);
+            if(!ratingList.includes(rate)){
+                ratingList.push(rate);
+            }
+        })
+    }
     return ratingList;
 }
 
