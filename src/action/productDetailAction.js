@@ -35,7 +35,6 @@ export function isItemPresent()
         fetch(fetchUrl).then(res=>{
             return res.json();
         }).then((product)=>{
-            console.log('product present ? : '+ product.isProductPresent);
             let value = "";
             if(product.isProductPresent === true){
                 value = "GO TO CART";
@@ -82,7 +81,6 @@ export function handleOnClickProduct(product)
                  isItemPresent : true
              })
          }
-         console.log('data.productStatus : ',data.productStatus)
          if(data.productStatus === 'ADDED'){
              this.setState({
                  isItemAdded : true

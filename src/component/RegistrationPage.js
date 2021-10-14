@@ -31,9 +31,6 @@ class RegistratinPage extends React.Component {
     }
 
     onSearchClick(e){
-        
-        let searchText = document.getElementById("searchInput").value;
-        console.log("text val : ", searchText);
         if(this.state.searchTitle!=="")
         {
             window.location = '/productFilter/' + this.state.searchTitle;
@@ -47,7 +44,6 @@ class RegistratinPage extends React.Component {
     }
 
     onInput(event){
-        console.log('event target : ',event.target.name)
         validateFieldsOnInput.call(this,event.target.name,event.target.value,false);
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -55,10 +51,7 @@ class RegistratinPage extends React.Component {
     handleSubmit(event){
         event.preventDefault();
        let userPostMap = createUserMap.call(this,this.state.firstName,this.state.lastName,this.state.emailId,this.state.mobileNumber,this.state.address,this.state.loginId,this.state.password,this.state.confirmPassword);
-        console.log('userMap : ',userPostMap);
-     
         if(validateFieldsOnInput.call(this,event.target.name,event.target.value,true)===true){
-            console.log('all validation passed')
             postUserMap.call(this,event,userPostMap);
         }
     }

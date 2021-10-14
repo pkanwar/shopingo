@@ -35,7 +35,6 @@ export function fetchUser() {
         fetch('/api/cart/items/').then(res=>{       
             return res.json();
         }).then(cart=>{
-            console.log('cart : ',cart);
             if(cart.status === "SUCCEEDED"){
                 this.setState({
                     cartQuantity : cart.cartQuantity

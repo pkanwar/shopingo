@@ -4,10 +4,8 @@ export function getOrder()
 {
     const fetchOrderUrl = '/api/orders/';
         fetch(fetchOrderUrl).then((res)=>{
-            console.log('res : ' + res.status);
             return res.json();
         }).then((orderItem)=>{
-            console.log('cartItem : '+ orderItem);
             if(orderItem.status === "SUCCEEDED"){
                 this.setState({
                     items : orderItem.items,
@@ -32,7 +30,7 @@ export function makePayment(e)
     e.preventDefault();
         const paymentHandlers = {
             onSuccess: (options)=>{
-                console.log('options : ',options);
+                //console.log('options : ',options);
                 fetch(`/api/orders/${options.id}`,{
                     method : 'PUT',
                     body : JSON.stringify(options),
@@ -40,7 +38,6 @@ export function makePayment(e)
                             'Content-type': 'application/json; charset=UTF-8'
                          }
                 }).then((res) => {
-                    console.log('res status : ',res.status);
                     let msg = "";
                     let location = "";
                     if(res.status === 204){

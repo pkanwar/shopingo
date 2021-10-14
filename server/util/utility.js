@@ -57,7 +57,6 @@ module.exports.getPrice = (productId,quantity)=>{
         const totalPriceMap = {};
         Product.findOne({_id: productId}).then(product=>{
             const priceMap = product.price;
-            console.log('priceMap : ',priceMap);
             let totalPrice = priceMap.actualPrice * quantity;
             let discountedPrice = null;
             if(priceMap.discountedPrice){
@@ -65,7 +64,6 @@ module.exports.getPrice = (productId,quantity)=>{
             }
             totalPriceMap['totalPrice'] = totalPrice;
             totalPriceMap['discountedPrice'] = discountedPrice;
-            console.log('totalPriceMap : ',totalPriceMap['totalPrice']);
             resolve(totalPriceMap);
         })
     })
@@ -94,7 +92,6 @@ const getCart = (sessionId)=>{
                 cartMap['discountedPrice'] = item.discountedPrice;
                 cartItems.push(cartMap);
             })
-            console.log('cartItems : ',cartItems);
             resolve(cartItems);
         })
     })
@@ -123,7 +120,6 @@ module.exports.updateUserCart = (loginId,sessionId)=>{
                     }else{
                       updatedCart = cartItems;
                     }
-                    console.log('updatedCart : ',updatedCart);
                     User.updateOne({_id:user.id},{cart:updatedCart}).then(()=>{
                         Cart.deleteMany({sessionId});
                     })

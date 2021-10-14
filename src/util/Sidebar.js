@@ -12,7 +12,7 @@ function isEmpty(map)
 function getAuthors(products)
 {
     let authorList = [];
-    console.log('products : ',products.size);
+    //console.log('products : ',products.size);
     if(!isEmpty(products)){
         products.authors.forEach((author)=>{
             if(!authorList.includes(author)){

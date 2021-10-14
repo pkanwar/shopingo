@@ -30,25 +30,18 @@ const getTotalPrice = (items)=>{
         }
     })
     totalPrice = actualPrice - discount;
-    console.log('actualPrice : ',actualPrice);
-    console.log('discount : ',discount);
-    console.log('totalPrice : ',totalPrice*100);
+    
     return totalPrice*100;
 }
 
 exports.createOrder = (req,res)=>{
-    console.log('sessionid : ',req.session.id)
     Cart.findOne({ sessionId: req.session.id }).then(cart => {
-        console.log('cart : ',cart);
-        console.log('user id : ',req.session.userId)
+        
         const items = cart.items;
         const amount = getTotalPrice(cart.items);
-        console.log('amount : ',amount);
-        console.log('items : ',items);
+        
         const order = new Order({ userId: req.session.userId,items : items, status: 'CREATED', amount: amount, currency: currency });
-        console.log('order : ',order);
         order.save().then(() => {
-            console.log('order saved : ', order.id)
             const orderId = order.id;
             const options = {
                 amount,
@@ -56,7 +49,6 @@ exports.createOrder = (req,res)=>{
                 //receipt denotes our order id on Razorpay
                 receipt: orderId,
             };
-            console.log('options : ',options);
             //Create order on razorpay
             rzpInstance.orders.create(options, (err, rzpOrder) => {
                 if (err) {
@@ -65,7 +57,6 @@ exports.createOrder = (req,res)=>{
                     return;
                 }
 
-                console.log('success ');
 
                 res.status(201).send({
                     amount,
@@ -88,16 +79,14 @@ exports.createOrder = (req,res)=>{
 
 exports.updateOrder = (req,res)=>{
     const orderId = req.params.id;
-    console.log('orderID : ',orderId);
-    console.log('req body : ',req.body);
+    
     const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
     if (!razorpay_payment_id || !razorpay_signature) {
         res.status(400).send(error.getError('ER015'));
         return;
     }
     const generated_signature = crypto.createHmac('sha256', secret).update(orderId + "|" + razorpay_payment_id).digest('hex');
-    console.log('generated_signature : ',generated_signature);
-    console.log('razorpay_signature : ',razorpay_signature);
+   
     if (generated_signature.length === razorpay_signature.length) {
         Order.updateOne({ id: orderId }, { $set: { status: 'COMPLETED', razorpay_payment_id, razorpay_order_id, razorpay_signature }}).then(() => {
             res.status(204).send({message : 'order completed successfully',status : 'SUCCEEDED'});

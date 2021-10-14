@@ -3,7 +3,6 @@ import {activePageStyle,passivePageStyle} from '../action/productListAction.js';
 
 
 function PageLink(props) {
-    console.log('current page page link : ',props.currentPage)
     let currentPageNumber = props.currentPage;
     const pages = props.totalPages;
     let pageLinks = [];

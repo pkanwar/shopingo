@@ -20,9 +20,6 @@ class ProductCart extends React.Component {
     }
 
     onSearchClick(e){
-        
-        let searchText = document.getElementById("searchInput").value;
-        console.log("text val : ", searchText);
         if(this.state.searchTitle!=="")
         {
             window.location = '/productFilter/' + this.state.searchTitle;

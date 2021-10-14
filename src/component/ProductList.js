@@ -46,9 +46,6 @@ class ProductList extends React.Component {
 
     onSearchClick(e){
         e.preventDefault()
-        let searchText = document.getElementById("searchInput").value;
-        //alert(searchText)
-        console.log("text val : ", searchText);
         if(this.state.searchTitle!=="")
         {
             window.location = '/productFilter/' + this.state.searchTitle;
@@ -63,7 +60,6 @@ class ProductList extends React.Component {
 
     componentDidMount(){
         let pageNumber = this.props.match.params.pageNumber;
-        console.log('mount')
         setFilterMap.call(this)
         getProducts.call(this,pageNumber)
         getCart.call(this)
@@ -71,8 +67,6 @@ class ProductList extends React.Component {
     }
 
     render(){
-        console.log('filter map : ',this.state.filterMap)
-        console.log('total pages : ',this.state.totalPages)
         const products = this.state.products;
         let noOfProducts =  products.length;
         let productListSize = 80 + (parseInt(Math.ceil(noOfProducts/4)))*400;

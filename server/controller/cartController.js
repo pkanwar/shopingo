@@ -12,7 +12,6 @@ exports.addToCart = (req,res)=>{
             cart.items.forEach(item=>{
                 if(item.productId===req.body.productId){
                     item.quantity += req.body.quantity;
-                    console.log('quantity : ',item.quantity);
                     isProductPresent = true;
                 }
             })
@@ -69,7 +68,6 @@ exports.updateToCart = (req,res)=>{
 exports.deleteFromCart = (req,res)=>{
     const sessionId = req.sessionID;
     let cartItemIndex = -1;
-    console.log('sessionId : ', sessionId);
     Cart.findOne({sessionId}).then(cart=>{
         if(!cart){
             return res.status(400).send(error.getError('ER013'));
@@ -105,15 +103,13 @@ exports.deleteFromCart = (req,res)=>{
 
 exports.getCart = (req,res)=>{
     const sessionId = req.sessionID;
-    console.log("sessionId : " + sessionId);
-    console.log("user id : ", req.session.userId )
+    
     try{
     Cart.findOne({sessionId}).then(cart=>{
         if(!cart || cart.items.length===0){
             return res.status(404).send(error.getError('ER013'));
         }
 
-        console.log('cart : ',cart);
         let result = {};
         let totalPrice = 0;
         let actualPrice = 0;
@@ -140,8 +136,6 @@ exports.getCart = (req,res)=>{
         result['cartQuantity'] = cart.items.length;
         result['status'] = 'SUCCEEDED';
 
-        console.log('result : ' + result);
-
         res.status(200).send(result);
     })
   }catch(error){
@@ -152,7 +146,6 @@ exports.getCart = (req,res)=>{
 
 exports.getCartById = (req,res)=>{
     const sessionId = req.sessionID;
-    console.log("sessionId : " + sessionId);
     Cart.findOne({sessionId}).then(cart=>{
         if(!cart){
             res.status(404).send(error.getError('ER013'));
@@ -190,7 +183,6 @@ exports.getCartById = (req,res)=>{
 exports.isItemPresent = (req,res)=>{    
     let sessionId = req.sessionID;
     let itemId = req.params.itemId;
-    console.log('item id '.itemId);
     let isProductPresent = false;
     Cart.findOne({sessionId}).then(cart=>{
         if(!cart || cart.items.length===0){

@@ -8,7 +8,6 @@ class ErrorPageOrder extends React.Component {
     // }
 
     onOkayClick(location){
-        console.log('location : ',location);
         window.location = location;
     }
 
@@ -17,7 +16,7 @@ class ErrorPageOrder extends React.Component {
         let error = errorArray.split('|')
         const message = error[0];
         const location = '/' + error[1];
-        console.log('error object : ',message);
+        //console.log('error object : ',message);
         return (
                 <div className="errorpage-container-active" >
                 <div className="error-section" onClick={e => e.stopPropagation()}>

@@ -4,7 +4,6 @@ export function getCartItems()
 {
     const fetchCartUrl = '/api/cart/items/';
     fetch(fetchCartUrl).then((res)=>{
-        console.log('res : ' + res.status);
         return res.json();
         
     }).then((cartItem)=>{
@@ -101,8 +100,6 @@ export function deleteItemFromOrder(productId,isDecrement)
 }
 
 export function getProductsBySearch(title,pageNumber,pages){
-    console.log('title : ',title);
-    console.log('pageNumber : ',pageNumber);
     let pageNo = 1;
     let numberOfItems = pageSize;
     let totalPages = this.state.totalPages;;
@@ -114,9 +111,7 @@ export function getProductsBySearch(title,pageNumber,pages){
         pageNo = getPageNumber(pageNumber,totalPages);
     }
     const fetchProductsUrl = `/api/products?page=${pageNo}&size=${numberOfItems}&title=${title}&category=&subCategory=`;
-    console.log('url : ',fetchProductsUrl)
     fetch(fetchProductsUrl).then(res=>{
-        console.log('products response : '+ res);
         if(res.status===200){
             return res.json();
         }else{
@@ -124,7 +119,6 @@ export function getProductsBySearch(title,pageNumber,pages){
         }
     }).then((productList)=>{
 
-        console.log("list : ", productList)
         if(!productList.products.length){
             let msg = "No search results found for '"+title+"'";
             let location = "";

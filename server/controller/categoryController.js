@@ -9,7 +9,6 @@ exports.addCategory = (req,res)=>{
         "name" : req.body.name,
         "subCategories" : subCategoryList
     });
-    console.log("category body :  ", newCategory);
     if(!req.body){
         res.status(400).send(error.getError('ER012'));
     }
@@ -22,7 +21,6 @@ exports.addCategory = (req,res)=>{
 
 exports.getCategories = (req,res)=>{
     Category.find({},(err,categories)=>{
-        console.log('categories : ',categories);
         res.status(200).send(categories);
     })
 }

@@ -25,8 +25,6 @@ export function postUserMap(e,postUserMap)
             'Content-type': 'application/json; charset=UTF-8'
          }
     }).then(res=>{
-        console.log('status : ',res.status);
-        console.log('res : ' + res);
         if(res.status === 201){
             let msg = "Your account is successfully created . Please login to continue";
             let location = "";
@@ -37,24 +35,7 @@ export function postUserMap(e,postUserMap)
         return res.json();
     }).then(error => {
 
-        console.log('error json',error);
-
-        // if(error.errorCode === 'ER004'){
-        //     this.setState({
-        //         loginMsg : error.message
-        //     })
-        //     alert()
-        // }
-        // if(error.errorCode === 'ER003'){
-        //     this.setState({
-        //         mobileNumberMsg : error.message
-        //     })
-        // }
-        // if(error.errorCode === 'ER002'){
-        //     this.setState({
-        //         emailIdMsg : error.message
-        //     })
-        // }
+       // console.log('error json',error);
         alert(error.message)
 
     })
@@ -99,7 +80,6 @@ function getPasswordMsg(field,value)
 export function validateFieldsOnInput(field,value,isSubmitValidation){
 
     let isValid = true;
-    console.log('isSubmitValidation : ',isSubmitValidation)
     if(isSubmitValidation===true || field === "firstName"){
         if(isSubmitValidation===true){
             field = "firstName"
@@ -235,7 +215,6 @@ export function validateFieldsOnInput(field,value,isSubmitValidation){
              }
         }
     }
-    console.log('isValid : ',isValid);
     if(isValid === false){
         return false;
     }
@@ -246,7 +225,7 @@ export function validateFieldsOnInput(field,value,isSubmitValidation){
 export function emailValidation(value)
 {
     let mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    console.log('mail format match : ',value.match(mailformat));
+    //console.log('mail format match : ',value.match(mailformat));
     if (!value.match(mailformat))
     {      
         return false;

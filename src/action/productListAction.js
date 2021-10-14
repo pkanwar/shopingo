@@ -21,7 +21,6 @@ export function nextPageAction(value)
         pageNumber = value;
     }else{
          pageNumber = getPageNumber(currentPage-1,this.state.totalPages);
-         console.log('is increment : ',isIncrementOperation(value))
         if(isIncrementOperation(value))
         {
             pageNumber = getPageNumber(currentPage+1,this.state.totalPages);
@@ -47,18 +46,15 @@ export function getProducts(pageNumber,pages){
     if(pageNumber){
         pageNo = getPageNumber(pageNumber,totalPages);
     }
-    console.log("pageNo : ",pageNo)
     let numberOfItems = pageSize;
     const fetchProductsUrl = `/api/products?page=${pageNo}&size=${numberOfItems}&title=&category=&subCategory=`;
     fetch(fetchProductsUrl).then(res=>{
-        console.log('products response : '+ res);
         if(res.status===200){
             return res.json();
         }else{
             // throw error 500
         }
     }).then((productList)=>{
-        console.log('product list : ',productList)
         this.setState({
             products : productList.products,
             totalPagesWithoutFilter : productList.totalPages,
@@ -73,16 +69,13 @@ export function getProducts(pageNumber,pages){
 
 export function setFilterMap(){
     const fetchfilterMapUrl = "/api/products/getFilterMap";
-    console.log('fetch url : ',fetchfilterMapUrl)
     fetch(fetchfilterMapUrl).then((res)=>{
-        console.log('filter map res : '+ res);
         if(res.status===200){
             return res.json();
         }else{
             // throw error 500
         }
     }).then((filterList)=>{
-        console.log('filterList : ',filterList)
         this.setState({
             sideBarList : filterList,
         });
@@ -96,7 +89,6 @@ export function getCart()
 {
     const fetchCartUrl = '/api/cart/items/';
         fetch(fetchCartUrl).then((res)=>{
-            console.log('res : ' + res.status);
             return res.json();
         }).then(cart=>{
             this.setState({
@@ -107,7 +99,6 @@ export function getCart()
 
 export function getProductsByFilter(key,value)
 {
-    console.log('current page : ',this.state.currentPage)
     let filterMap = this.state.filterMap;
     let filter = []
     // filterMap['page'] = 1;
@@ -126,7 +117,6 @@ export function getProductsByFilter(key,value)
         filterMap[key] = filter;
     }
     getPageAndSize.call(this,filterMap);
-    console.log('filter : ',filterMap)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -135,7 +125,6 @@ export function getProductsByFilter(key,value)
     fetch('/api/products/filter', requestOptions).then(res=>{
         return res.json();
     }).then(result=>{
-        console.log('result : ', result);
         if(result.status === 'SUCCEEDED'){
             this.setState({
                 filterMap : filterMap,
@@ -153,7 +142,6 @@ export function goToOtherPageByFilter(pageNumber)
     let filterMap = this.state.filterMap;
     filterMap['page'] = getPageNumber(pageNumber,this.state.totalPages);
     filterMap['size'] = 12;
-    console.log('filter : ',filterMap)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -162,7 +150,6 @@ export function goToOtherPageByFilter(pageNumber)
     fetch('/api/products/filter', requestOptions).then(res=>{
         return res.json();
     }).then(result=>{
-        console.log('result : ', result);
         if(result.status === 'SUCCEEDED'){
             this.setState({
                 filterMap : filterMap,
@@ -181,18 +168,9 @@ export function clearAllfilters()
     this.setState({
         filterMap : {},
     })
-    console.log('state current page : ',this.state.currentPage);
-    console.log('state total page : ',this.state.totalPages);
-    console.log('state current page with filter : ',this.state.currentPageWithFilter);
-    console.log('state total page with filter : ',this.state.totalPagesWithFilter);
-    console.log('state current page without filter : ',this.state.currentPageWithoutFilter);
-    console.log('state total page wihtout filter : ',this.state.totalPagesWithoutFilter);
-        
-    console.log('page current : ',this.state.currentPageWithoutFilter)
+  
     getProducts.call(this,this.state.currentPageWithoutFilter,this.state.totalPagesWithoutFilter)
     
-    console.log('update state current page : ',this.state.currentPage);
-    console.log('update state total page : ',this.state.totalPages);
     let author = document.getElementsByName("author") ;
     for(let i = 0;i < author.length; i++)
     {
@@ -228,12 +206,10 @@ function updatePageDetails()
             totalPages : this.state.totalPagesWithFilter
         })
     }else{
-        console.log('wihtout')
         this.setState({
             currentPage : this.state.currentPageWithoutFilter,
             totalPages : this.state.totalPagesWithoutFilter
         })
-        console.log('current p : ',this.state.currentPage)
     }
     return "done"
 }

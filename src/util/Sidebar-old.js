@@ -45,8 +45,6 @@ class CheckBox extends React.Component {
     
     handleOnCheck(e)
     {
-        //console.log('value on check ',obj.value);
-        console.log('name on check ',e.target);
        this.props.handleCheckboxClick(e.target.name,e.target.value);
     }
 
@@ -86,8 +84,7 @@ class Sidebar extends React.Component {
 
     handleCheckboxClick(name,value)
     {
-        console.log('value ',value);
-        console.log('name ',name);
+       
         this.props.onCheckBoxClick(name,value);
     }
 
@@ -96,7 +93,7 @@ class Sidebar extends React.Component {
     let authorList = getAuthors(products);
     let genreList = getGenres(products);
     let ratingList = getRatings(products);
-    console.log('ratingList : ',ratingList);
+    //console.log('ratingList : ',ratingList);
     const authorName = "author";
     const genreName = "genre"
     const ratingName = "rating"

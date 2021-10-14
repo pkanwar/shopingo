@@ -6,7 +6,6 @@ exports.addProduct = (req,res)=>{
         return res.status(400).send(error.getError('ER010'));
     }
     const productRequest =  req.body;
-    console.log('productRequest : ',productRequest);
     const newProduct = new Product({
         "title":productRequest.title,
         "description":productRequest.description,
@@ -47,8 +46,7 @@ exports.getProduct = (req,res)=>{
 }
 
 exports.getProducts = (req,res)=>{
-    console.log('session : ', req.session);
-    console.log('req.sessionID : ', req.sessionID);
+  
     let page = parseInt(req.query.page);
     let size = parseInt(req.query.size);
     let skip = 0;
@@ -72,7 +70,6 @@ exports.getProducts = (req,res)=>{
         parameters['author'] = new RegExp(author,'i');
     }
     if(rating){
-        console.log('rating : ',rating.split('|'));
         let rate = parseInt(rating[0]);
         const ratings = [];
         
@@ -81,10 +78,8 @@ exports.getProducts = (req,res)=>{
             ratings.push(regexp);
         });
 
-        console.log('ratings : ',ratings);
         //parameters['rating'] = new RegExp("^"+ rating);
         parameters['rating'] = { $in : ratings };
-        console.log('parameter rating : ',parameters['rating']);
     }
 
     if(page && size){
@@ -110,8 +105,7 @@ exports.getProducts = (req,res)=>{
 }
 
 exports.getProductsByFilter = (req,res)=>{
-    console.log('session : ', req.session);
-    console.log('req.sessionID : ', req.sessionID);
+    
     let page = parseInt(req.body.page);
     let size = parseInt(req.body.size);
     let skip = 0;
@@ -119,7 +113,6 @@ exports.getProductsByFilter = (req,res)=>{
     let category = req.body.genre;
     let author = req.body.author;
     let rating = req.body.rating;
-    console.log('body : ',req.body);
     let parameters = {};
     if(category && category.length !== 0){
         parameters['category'] =  { $in : category };
@@ -138,14 +131,11 @@ exports.getProductsByFilter = (req,res)=>{
         });
 
         parameters['rating'] = { $in : ratings };
-        console.log('parameter rating : ',parameters['rating']);
     }
     if(page && size){
         skip = (page-1) * size;
         limit = size
     }
-
-    console.log("parameters : ",parameters);
 
     Product.find(parameters).skip(skip).limit(limit).then(product=>{
        // console.log('product : ',product);
