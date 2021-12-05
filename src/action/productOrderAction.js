@@ -6,6 +6,8 @@ export function getOrder()
         fetch(fetchOrderUrl).then((res)=>{
             return res.json();
         }).then((orderItem)=>{
+            //ER013
+            console.log("orderItem : " + orderItem.status)
             if(orderItem.status === "SUCCEEDED"){
                 this.setState({
                     items : orderItem.items,
@@ -18,6 +20,12 @@ export function getOrder()
                 let msg = "";
                 let location = "";
                 msg = orderItem.message;
+                const redirect = '/error/' + msg + '|' + location;
+                window.location = redirect;
+            }else if (orderItem.errorCode === 'ER013'){
+                let msg = "";
+                let location = "";
+                msg = "No orders Present. Please add some books";
                 const redirect = '/error/' + msg + '|' + location;
                 window.location = redirect;
             }

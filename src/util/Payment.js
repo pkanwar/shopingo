@@ -1,4 +1,5 @@
 
+require('dotenv').config();
 
 function initiatePayment(paymentHandlers, onOrderCreateFailure) {
     fetch('/api/orders', {

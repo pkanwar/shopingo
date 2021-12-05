@@ -4,12 +4,14 @@ const Razorpay = require('razorpay');
 const crypto = require("crypto");
 //Configure .env
 require('dotenv').config();
-
+const cartController = require('../controller/cartController');
 const Cart = require("../models/cart");
 
 const rzpKey = process.env.RZP_KEY_ID;
 const secret = process.env.RZP_KEY_SECRET;
 const currency = 'INR';
+
+//console.log("rzpKey : ", rzpKey)
 
 const rzpInstance = new Razorpay({
     key_id: rzpKey,
@@ -86,9 +88,13 @@ exports.updateOrder = (req,res)=>{
         return;
     }
     const generated_signature = crypto.createHmac('sha256', secret).update(orderId + "|" + razorpay_payment_id).digest('hex');
+
+    // console.log("generated_signature : "+ generated_signature);
+    // console.log("razorpay_signature : "+ razorpay_signature);
    
     if (generated_signature.length === razorpay_signature.length) {
         Order.updateOne({ id: orderId }, { $set: { status: 'COMPLETED', razorpay_payment_id, razorpay_order_id, razorpay_signature }}).then(() => {
+            cartController.deleteCartBySessionId(req.session.id);
             res.status(204).send({message : 'order completed successfully',status : 'SUCCEEDED'});
         });
     } else {

@@ -101,6 +101,19 @@ exports.deleteFromCart = (req,res)=>{
     
 }
 
+exports.deleteCartBySessionId = (sessionId)=>{
+    try{
+        Cart.deleteMany({sessionId : sessionId}).then(cart=>{
+            if(cart)
+            {
+                console.log("cart delete sucess")
+            }
+        })
+    }catch(error){
+        console.log("error while deleting")
+    }
+}
+
 exports.getCart = (req,res)=>{
     const sessionId = req.sessionID;
     
